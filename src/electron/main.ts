@@ -22,6 +22,15 @@ function createWindow() {
         );
     }
 
+    // Build app
+    // mainWindow.loadURL(
+    //     url.format({
+    //         pathname: path.join(__dirname, '../build/index.html'),
+    //         protocol: 'file:',
+    //         slashes: true
+    //     })
+    // );
+
     mainWindow.webContents.openDevTools();
     mainWindow.on('closed', () => {
         mainWindow = null;
