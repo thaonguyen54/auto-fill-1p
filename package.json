@@ -1,0 +1,36 @@
+{
+  "name": "auto-fill-1p",
+  "version": "1.0.0",
+  "main": "./build/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:static": "webpack --config webpack.react.config.js",
+    "build:main": "webpack --config webpack.electron.config.js",
+    "build:renderer": "npm run build:static && webpack-dev-server --config webpack.react.config.js",
+    "start": "concurrently \"npm run build:main && npm run electron:start\"  \"npm run build:renderer\" ",
+    "electron:start": "electron build/main.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "electron": "^33.2.0",
+    "html-webpack-plugin": "^5.6.3"
+  },
+  "dependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.25.9",
+    "@babel/preset-typescript": "^7.26.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "babel-loader": "^9.2.1",
+    "cross-env": "^7.0.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "webpack": "^5.96.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.1.0"
+  }
+}
