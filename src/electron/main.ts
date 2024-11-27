@@ -22,7 +22,7 @@ function createWindow() {
         );
     }
 
-    // Build app
+    //Build app
     // mainWindow.loadURL(
     //     url.format({
     //         pathname: path.join(__dirname, '../build/index.html'),

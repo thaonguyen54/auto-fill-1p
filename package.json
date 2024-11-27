@@ -4,11 +4,9 @@
   "main": "./build/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:static": "webpack --config webpack.react.config.js",
-    "build:main": "webpack --config webpack.electron.config.js",
-    "build:renderer": "npm run build:static && webpack-dev-server --config webpack.react.config.js",
-    "start": "concurrently \"npm run build:renderer\"  \"npm run build:main && npm run electron:start\" ",
-    "electron:start": "electron build/main.js",
+    "build:main": "webpack --config webpack.config.main.js && electron .",
+    "build:renderer": "webpack serve --config webpack.config.renderer.js",
+    "start": "concurrently \"npm:build:main\" \"npm:build:renderer\"",
     "build": "electron-builder"
   },
   "keywords": [],
@@ -28,10 +26,25 @@
       "package.json"
     ],
     "win": {
-      "target": "portable"
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ]
     },
     "mac": {
-      "target": "dmg"
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "universal"
+          ]
+        }
+      ]
     },
     "linux": {
       "target": "AppImage"
@@ -40,7 +53,8 @@
   "devDependencies": {
     "electron": "^33.2.0",
     "electron-builder": "^25.1.8",
-    "html-webpack-plugin": "^5.6.3"
+    "html-webpack-plugin": "^5.6.3",
+    "npm-run-all": "^4.1.5"
   },
   "dependencies": {
     "@babel/core": "^7.26.0",
