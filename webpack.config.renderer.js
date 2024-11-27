@@ -5,8 +5,12 @@ module.exports = {
     mode: 'development',
     resolve: {
         extensions: ['.js', '.ts', '.tsx'],
+        alias: {
+            '@components': path.resolve(__dirname, 'src/components'),
+            '@lib': path.resolve(__dirname, 'src/lib'),
+        }
     },
-    entry: './src/renderer/app.tsx',
+    entry: ['./src/renderer/app.tsx'],
     target: 'electron-renderer',
     devtool: 'source-map',
     module: {
@@ -31,7 +35,6 @@ module.exports = {
     devServer: {
         static: {
             directory: path.join(__dirname, 'build'),
-            publicPath: '/',
         },
         compress: true,
         port: 9000,
