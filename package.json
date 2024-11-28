@@ -1,12 +1,13 @@
 {
   "name": "auto-fill-1p",
   "version": "1.0.0",
-  "main": "./build/main.js",
+  "main": "./build/app.main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:main": "webpack --config webpack.config.main.js && electron .",
     "build:renderer": "webpack serve --config webpack.config.renderer.js",
-    "start": "concurrently \"npm:build:main\" \"npm:build:renderer\"",
+    "start": "npm run config && concurrently \"npm:build:main\" \"npm:build:renderer\"",
+    "config": "set ENV=dev&& node ./src/scripts/script.js",
     "build": "electron-builder"
   },
   "keywords": [],
@@ -71,6 +72,7 @@
     "concurrently": "^9.1.0",
     "cross-env": "^7.0.3",
     "css-loader": "^7.1.2",
+    "dotenv": "^16.4.5",
     "lucide-react": "^0.461.0",
     "postcss": "^8.4.49",
     "postcss-loader": "^8.1.1",
