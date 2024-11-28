@@ -6,7 +6,10 @@ module.exports = {
         extensions: ['.js', '.ts', '.tsx']
     },
     devtool: 'source-map',
-    entry: './src/electron/main.ts',
+    entry: {
+        main: "./src/electron/main.ts",
+        config: "./configs/config.js",
+    },
     target: 'electron-main',
     module: {
         rules: [
@@ -21,6 +24,6 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, './build'),
-        filename: 'main.js',
+        filename: '[name].bundle.js',
     }
 }
