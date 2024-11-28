@@ -1,13 +1,14 @@
 {
   "name": "auto-fill-1p",
   "version": "1.0.0",
-  "main": "./build/app.main.js",
+  "main": "./build/main.bundle.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:main": "webpack --config webpack.config.main.js && electron .",
     "build:renderer": "webpack serve --config webpack.config.renderer.js",
     "start": "npm run config && concurrently \"npm:build:main\" \"npm:build:renderer\"",
-    "config": "set ENV=dev&& node ./src/scripts/script.js",
+    "remove-previous-config": "cd configs && del config.js && cd ..",
+    "config": "set ENV=dev&& npm run remove-previous-config && node ./src/scripts/script.js",
     "build": "electron-builder"
   },
   "keywords": [],

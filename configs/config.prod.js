@@ -1,5 +1,5 @@
 const CONFIG = {
-    API_URL: 'https://api.myapp.com/production',
+    API_URL: 'https://api.digital-fortress.com',
     API_KEY: 'prod-api-key',
     ENV: 'production',
 }

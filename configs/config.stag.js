@@ -1,5 +1,5 @@
 const CONFIG = {
-    API_URL: 'https://api.myapp.com/staging',
+    API_URL: 'https://staging.api.myapp.com',
     API_KEY: 'stag-api-key',
     ENV: 'staging',
 }

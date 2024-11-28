@@ -1,5 +1,5 @@
 const CONFIG = {
-    API_URL: 'https://api.myapp.com/development',
+    API_URL: 'https://development.api.myapp.com/',
     API_KEY: 'dev-api-key',
     ENV: 'development',
 }

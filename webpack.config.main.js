@@ -7,8 +7,8 @@ module.exports = {
     },
     devtool: 'source-map',
     entry: {
-        app: "./src/electron/main.ts",
-        config: "./src/configs/config.js",
+        main: "./src/electron/main.ts",
+        config: "./configs/config.js",
     },
     target: 'electron-main',
     module: {
@@ -24,6 +24,6 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, './build'),
-        filename: '[name].main.js',
+        filename: '[name].bundle.js',
     }
 }

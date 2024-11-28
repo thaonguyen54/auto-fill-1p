@@ -1,7 +1,7 @@
 import { app, BrowserWindow } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
-import CONFIG from '../configs/config';
+import CONFIG from '../../configs/config';
 
 let mainWindow: Electron.BrowserWindow | null;
 
@@ -11,7 +11,10 @@ function createWindow() {
         height: 600,
     });
 
-    if (CONFIG.ENV === 'production' || CONFIG.ENV === 'staging') {
+    if (CONFIG.ENV === 'development') {
+        mainWindow.loadURL(`http://localhost:9000`);
+        mainWindow.webContents.openDevTools();
+    } else {
         mainWindow.loadURL(
             url.format({
                 pathname: path.join(__dirname, '../build/index.html'),
@@ -19,10 +22,6 @@ function createWindow() {
                 slashes: true
             })
         );
-
-    } else {
-        mainWindow.loadURL(`http://localhost:9000`);
-        mainWindow.webContents.openDevTools();
     }
 
     mainWindow.on('closed', () => {
