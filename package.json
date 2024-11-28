@@ -5,8 +5,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:main": "webpack --config webpack.config.main.js && electron .",
-    "build:renderer": "webpack serve --config webpack.config.renderer.js",
-    "start": "npm run config && concurrently \"npm:build:main\" \"npm:build:renderer\"",
+    "build:renderer": "webpack-dev-server --hot --config webpack.config.renderer.js",
+    "watch:static": "webpack --watch --config webpack.config.renderer.js",
+    "start": "concurrently -k \"npm:watch:static\" \"npm:build:renderer\" \"npm:build:main\"",
     "remove-previous-config": "cd configs && del config.js && cd ..",
     "config": "set ENV=dev&& npm run remove-previous-config && node ./src/scripts/script.js",
     "build": "electron-builder"

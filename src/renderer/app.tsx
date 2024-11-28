@@ -4,7 +4,6 @@ import "../styles.css";
 import { Button } from "@components/ui/button";
 import Login from "./login";
 
-
 const container = document.getElementById("root");
 
 const App = () => {

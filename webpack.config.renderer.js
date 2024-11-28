@@ -10,7 +10,9 @@ module.exports = {
             '@lib': path.resolve(__dirname, 'src/lib'),
         }
     },
-    entry: ['./src/renderer/app.tsx'],
+    entry: {
+        app: './src/renderer/app.tsx'
+    },
     target: 'electron-renderer',
     devtool: 'source-map',
     module: {
@@ -36,18 +38,18 @@ module.exports = {
         static: {
             directory: path.join(__dirname, 'build'),
         },
+        hot: true,
         compress: true,
         port: 9000,
-
     },
     output: {
         path: path.resolve(__dirname, "build"),
-        filename: 'render.js',
+        filename: '[name].render.js',
         publicPath: './'
     },
     plugins: [
         new HtmlWebpackPlugin({
             template: './src/public/index.html'
-        }),
+        })
     ],
 }
