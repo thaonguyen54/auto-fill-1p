@@ -4,7 +4,7 @@ import NewsFrame from "./_components/news-frame";
 
 const Login = () => {
   return (
-    <div className="bg-[#f6f7f8] overflow-auto min-h-screen flex flex-wrap justify-center">
+    <div className="bg-secondary-white overflow-auto min-h-screen flex flex-wrap justify-center">
       <LockedContainer />
       <NewsFrame />
     </div>

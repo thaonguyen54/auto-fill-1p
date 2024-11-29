@@ -5,9 +5,9 @@ import React from 'react'
 const NewsFrame = () => {
   return (
     <div className="flex flex-grow flex-shrink-0 max-w-[30%]">
-      <div className="bg-[#1a285f] w-full h-full overflow-auto font-sans flex items-stretch justify-center px-6 pt-[22vh]">
+      <div className="bg-dark-primary-blue w-full h-full overflow-auto font-sans flex items-stretch justify-center px-6 pt-[22vh]">
         <h1>
-          <Button className="font-[650] font-sans text-[#1a285f] bg-[#dfa4cf] text-xs mb-2 p-4 rounded-sm hover:text-white">
+          <Button className="font-[650] font-sans text-dark-primary-blue bg-light-pink text-xs mb-2 p-4 rounded-sm hover:text-white">
             Guide
           </Button>
           <p className="text-white font-bold text-xl">

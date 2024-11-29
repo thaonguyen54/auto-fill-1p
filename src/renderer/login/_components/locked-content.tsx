@@ -13,7 +13,7 @@ const LockedContent = () => {
         <h1 className="font-sans font-semibold text-lg">
           Sign in to 1Password
         </h1>
-        <Label htmlFor="email" className="text-[#707070] font-normal ">
+        <Label htmlFor="email" className="text-light-secondary-gray font-normal ">
           Email
         </Label>
         <Input
@@ -22,11 +22,11 @@ const LockedContent = () => {
           type="email"
         />
         <div className="flex items-center justify-between w-full mb-9">
-          <Button className="bg-[#0572ec] hover:bg-[#1060d1] rounded-3xl ">
+          <Button className="bg-light-blue hover:bg-dark-secondary-blue rounded-3xl ">
             Continue
           </Button>
           <a
-            className="text-[#0166cb]  text-sm font-[625]"
+            className="text-light-primary-blue  text-sm font-[625]"
             href="https://my.1password.com/support?a=&email="
           >
             Having trouble signing in?

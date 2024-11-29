@@ -32,7 +32,7 @@ export function ComboboxLocale() {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between hover:border-[#0572ec] border"
+          className="w-[200px] justify-between hover:border-light-blue border"
         >
           {value.link}
           <ChevronIcon width="6" height="6" />
