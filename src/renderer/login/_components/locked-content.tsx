@@ -51,7 +51,7 @@ const LockedContent = () => {
 
   return (
     <div className="pt-[22vh] max-w-[420px] flex flex-grow flex-col w-auto  mr-16 items-start p-0">
-      {!newFormEnabled ? (
+      {newFormEnabled ? (
         <NewSignInForm />
       ) : !isLoading ? (
         <div className=" flex-grow items-stretch w-full">
