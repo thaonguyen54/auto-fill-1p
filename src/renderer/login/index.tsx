@@ -1,13 +1,14 @@
-import React from 'react'
-import Heading from './_components/heading'
+import React from "react";
+import LockedContainer from "./_components/locked-container";
+import NewsFrame from "./_components/news-frame";
 
 const Login = () => {
   return (
-    <div>
-      <Heading />
-      <div className='text-red-500'>Login Page</div>
+    <div className="bg-secondary-white overflow-auto min-h-screen flex flex-wrap justify-center">
+      <LockedContainer />
+      <NewsFrame />
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

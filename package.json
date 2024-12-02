@@ -5,9 +5,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:main": "webpack --config webpack.config.main.js && electron .",
-    "build:renderer": "webpack-dev-server --hot --config webpack.config.renderer.js",
+    "build:renderer": "webpack-dev-server --config webpack.config.renderer.js",
     "watch:static": "webpack --watch --config webpack.config.renderer.js",
-    "start": "concurrently -k \"npm:watch:static\" \"npm:build:renderer\" \"npm:build:main\"",
+    "start": "npm run config && concurrently -k \"npm:watch:static\" \"npm:build:renderer\" \"npm:build:main\"",
     "remove-previous-config": "cd configs && del config.js && cd ..",
     "config": "set ENV=dev&& npm run remove-previous-config && node ./src/scripts/script.js",
     "build": "electron-builder"
@@ -64,6 +64,11 @@
     "@babel/preset-env": "^7.26.0",
     "@babel/preset-react": "^7.25.9",
     "@babel/preset-typescript": "^7.26.0",
+    "@hookform/resolvers": "^3.9.1",
+    "@radix-ui/react-checkbox": "^1.1.2",
+    "@radix-ui/react-dialog": "^1.1.2",
+    "@radix-ui/react-label": "^2.1.0",
+    "@radix-ui/react-popover": "^1.1.2",
     "@radix-ui/react-slot": "^1.1.0",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
@@ -71,6 +76,7 @@
     "babel-loader": "^9.2.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "cmdk": "^1.0.4",
     "concurrently": "^9.1.0",
     "cross-env": "^7.0.3",
     "css-loader": "^7.1.2",
@@ -86,6 +92,8 @@
     "tailwindcss-animate": "^1.0.7",
     "webpack": "^5.96.1",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^5.1.0"
+    "webpack-dev-server": "^5.1.0",
+    "zod": "^3.23.8",
+    "zustand": "^5.0.1"
   }
 }

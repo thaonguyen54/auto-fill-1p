@@ -1,17 +1,14 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import "../styles.css";
-import { Button } from "@components/ui/button";
 import Login from "./login";
 
 const container = document.getElementById("root");
 
 const App = () => {
   return (
-    <div>
-      <h1>Hello World</h1>
+    <div className="w-full h-full">
       <Login />
-      <Button>Click me</Button>
     </div>
   );
 };
