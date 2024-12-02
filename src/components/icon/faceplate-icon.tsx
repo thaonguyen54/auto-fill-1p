@@ -3,7 +3,7 @@ import type { IconProps } from "./type";
 
 const FaceplateIcon = ({ width, height, className }: IconProps) => {
   return (
-    <div className={`${className}`}>
+    <div className={className}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         xmlnsXlink="http://www.w3.org/1999/xlink"

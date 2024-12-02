@@ -3,7 +3,7 @@ import type { IconProps } from "./type";
 
 const LinkIcon = ({ width, height, className }: IconProps) => {
   return (
-    <div className={`${className}`}>
+    <div className={className}>
       <svg
         aria-hidden="true"
         width={width}

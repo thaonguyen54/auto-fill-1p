@@ -8,6 +8,8 @@ import { Checkbox } from "@components/ui/checkbox";
 
 import { useForm } from "react-hook-form";
 import ErrorToast from "./error-toast";
+import useFormStore from "../../../stores/formStore";
+
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -18,12 +20,16 @@ interface SignInFormProps {
 }
 
 const NewSignInForm = () => {
+  const formStore = useFormStore();
+
   const { register, handleSubmit } = useForm<SignInFormProps>();
   const [error, setError] = useState<string>("");
 
   const handleValidate = (data: SignInFormProps) => {
     if (!EMAIL_REGEX.test(data.email)) {
       setError("Invalid email");
+    } else {
+      setError("");
     }
   };
 
@@ -46,6 +52,7 @@ const NewSignInForm = () => {
         <Input
           className="mt-2 mb-4 rounded-md px-4 py-3 bg-white focus:outline-none focus:shadow-secondary-sky transition-shadow duration-300"
           type="email"
+          defaultValue={formStore.email}
           {...register("email")}
         />
         <div className="flex items-center justify-between">

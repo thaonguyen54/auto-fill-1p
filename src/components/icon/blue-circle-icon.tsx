@@ -1,9 +1,9 @@
 import React from "react";
 import type { IconProps } from "./type";
 
-const BlueCirleIcon = ({ width, height, className }: IconProps) => {
+const BlueCirleIcon = ({ width, height, className = "" }: IconProps) => {
   return (
-    <div className={`${className}`}>
+    <div className={className}>
       <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height}>
         <defs>
           <linearGradient id="a" x1="50%" x2="50%" y1="0%" y2="100%">

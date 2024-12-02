@@ -34,7 +34,7 @@ const Spinner = React.forwardRef<HTMLDivElement, SpinnerProps>(
       ref={ref}
       className={cn(spinnerVariants({ size, speed }), className)}
       {...props}
-    ></div>
+    />
   )
 );
 

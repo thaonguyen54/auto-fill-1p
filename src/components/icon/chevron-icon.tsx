@@ -1,9 +1,9 @@
 import React from "react";
 import type { IconProps } from "./type";
 
-const ChevronIcon = ({ width, height, className }: IconProps) => {
+const ChevronIcon = ({ width, height, className = "" }: IconProps) => {
   return (
-    <div className={`${className}`}>
+    <div className={className}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width={width}
