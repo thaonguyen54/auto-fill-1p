@@ -5,9 +5,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:main": "webpack --config webpack.config.main.js && electron .",
-    "build:renderer": "webpack-dev-server --hot --config webpack.config.renderer.js",
+    "build:renderer": "webpack-dev-server --config webpack.config.renderer.js",
     "watch:static": "webpack --watch --config webpack.config.renderer.js",
-    "start": "concurrently -k \"npm:watch:static\" \"npm:build:renderer\" \"npm:build:main\"",
+    "start": "npm run config && concurrently -k \"npm:watch:static\" \"npm:build:renderer\" \"npm:build:main\"",
     "remove-previous-config": "cd configs && del config.js && cd ..",
     "config": "set ENV=dev&& npm run remove-previous-config && node ./src/scripts/script.js",
     "build": "electron-builder"
@@ -65,6 +65,7 @@
     "@babel/preset-react": "^7.25.9",
     "@babel/preset-typescript": "^7.26.0",
     "@hookform/resolvers": "^3.9.1",
+    "@radix-ui/react-checkbox": "^1.1.2",
     "@radix-ui/react-dialog": "^1.1.2",
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-popover": "^1.1.2",
@@ -85,7 +86,6 @@
     "postcss-loader": "^8.1.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-hook-form": "^7.53.2",
     "style-loader": "^4.0.0",
     "tailwind-merge": "^2.5.5",
     "tailwindcss": "^3.4.15",

@@ -8,6 +8,29 @@ module.exports = {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        'inset-soft-peach': 'inset 0 0 0 1px #e6b6ac',
+        'secondary-sky': '0 0 0 4px rgba(59, 130, 246, 1)'
+      },
+      keyframes: {
+        shake: {
+          '0%, 100%': { transform: 'translateX(0)' },
+          '20%': { transform: 'translateX(-10px)' },
+          '40%': { transform: 'translateX(10px)' },
+          '60%': { transform: 'translateX(-10px)' },
+          '80%': { transform: 'translateX(10px)' },
+        },
+        spin: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        }
+      },
+      animation: {
+        shake: 'shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both',
+        'spin-slow': 'spin 1s linear infinite',
+        'spin-medium': 'spin 0.5s linear infinite',
+        'spin-fast': 'spin 0.25s linear infinite',
+      },
       fontFamily: {
         sans: [
           '-apple-system',
@@ -32,6 +55,9 @@ module.exports = {
         'light-primary-blue': '#0166cb',
         'light-secondary-gray': '#707070',
         'light-pink': '#dfa4cf',
+        'neutral-gray': '#cbcccd',
+        'light-gray-blue': "#f6f7f",
+        'soft-pink': '#fae5e1',
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
