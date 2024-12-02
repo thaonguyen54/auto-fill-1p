@@ -8,7 +8,7 @@ import { Checkbox } from "@components/ui/checkbox";
 
 import { useForm } from "react-hook-form";
 import ErrorToast from "./error-toast";
-import useFormStore from "../../../stores/formStore";
+import useFormStore from "@stores/formStore";
 
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

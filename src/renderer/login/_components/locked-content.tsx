@@ -3,8 +3,7 @@ import { ComboboxLocale } from "./combobox-locale";
 import Spinner from "@components/common/spinner";
 import NewSignInForm from "./new-signin-form";
 import InitalForm from "./inital-form";
-import useFormStore from "../../../stores/formStore";
-
+import useFormStore from "@stores/formStore";
 
 const FOOTER_ITEMS = [
   {
@@ -70,9 +69,14 @@ const LockedContent = () => {
           })}
         </div>
         <small className="text-[10px] leading-4">
-          {SMALL_ITEMS.map((item,index) => {
+          {SMALL_ITEMS.map((item, index) => {
             return (
-              <a key={index} href={item.href} target="_blank" className="text-blue-600">
+              <a
+                key={index}
+                href={item.href}
+                target="_blank"
+                className="text-blue-600"
+              >
                 {item.text} <span className="text-black">{item.spanText}</span>
               </a>
             );

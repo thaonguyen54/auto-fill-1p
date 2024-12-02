@@ -3,9 +3,7 @@ import { Input } from "@components/ui/input";
 import { Label } from "@components/ui/label";
 import React from "react";
 import ErrorToast from "./error-toast";
-import useFormStore from "../../../stores/formStore";
-
-
+import useFormStore from "@stores/formStore";
 
 const CONTINUE_STYLE = {
   true: "bg-light-blue hover:bg-dark-secondary-blue",
