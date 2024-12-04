@@ -12,10 +12,8 @@ const CONTINUE_STYLE = {
 };
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
 const InitalForm = () => {
   const formStore = useFormStore();
-
   const handleInputEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     const emailValue = e.target.value;
     formStore.setEmail(emailValue);
@@ -28,7 +26,10 @@ const InitalForm = () => {
     }
   };
 
-  const handleContinue = () => {
+  const handleContinue = async() => {
+    const t = await (window as any).electronAPI.login({ email: "123", password: "123", name: "123" });
+    console.log(t);
+    
     const isValidEmail = EMAIL_REGEX.test(formStore.email);
     if (!isValidEmail) {
       formStore.setEmailValid(false);
