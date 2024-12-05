@@ -26,10 +26,7 @@ const InitalForm = () => {
     }
   };
 
-  const handleContinue = async() => {
-    const t = await (window as any).electronAPI.login({ email: "123", password: "123", name: "123" });
-    console.log(t);
-    
+  const handleContinue = async () => {
     const isValidEmail = EMAIL_REGEX.test(formStore.email);
     if (!isValidEmail) {
       formStore.setEmailValid(false);
@@ -59,7 +56,7 @@ const InitalForm = () => {
           className={`rounded-3xl ${CONTINUE_STYLE[`${formStore.isContinue}`]}`}
           onClick={handleContinue}
         >
-          Continue
+          Login
         </Button>
         <a
           className="text-light-primary-blue  text-sm font-[625] hover:underline"
