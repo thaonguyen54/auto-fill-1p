@@ -25,10 +25,13 @@ const NewSignInForm = () => {
   const { register, handleSubmit } = useForm<SignInFormProps>();
   const [error, setError] = useState<string>("");
 
-  const handleValidate = (data: SignInFormProps) => {
+  const handleValidate = async(data: SignInFormProps) => {
     if (!EMAIL_REGEX.test(data.email)) {
       setError("Invalid email");
     } else {
+      const t1 = await(window as any).electronAPI.sendMessage("login", data);
+
+      console.log(t1);
       setError("");
     }
   };

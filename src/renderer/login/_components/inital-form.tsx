@@ -12,10 +12,8 @@ const CONTINUE_STYLE = {
 };
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
 const InitalForm = () => {
   const formStore = useFormStore();
-
   const handleInputEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     const emailValue = e.target.value;
     formStore.setEmail(emailValue);
@@ -28,7 +26,7 @@ const InitalForm = () => {
     }
   };
 
-  const handleContinue = () => {
+  const handleContinue = async () => {
     const isValidEmail = EMAIL_REGEX.test(formStore.email);
     if (!isValidEmail) {
       formStore.setEmailValid(false);
@@ -58,7 +56,7 @@ const InitalForm = () => {
           className={`rounded-3xl ${CONTINUE_STYLE[`${formStore.isContinue}`]}`}
           onClick={handleContinue}
         >
-          Continue
+          Login
         </Button>
         <a
           className="text-light-primary-blue  text-sm font-[625] hover:underline"
