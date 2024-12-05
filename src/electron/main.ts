@@ -2,7 +2,7 @@ import { app, BrowserWindow } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 import CONFIG from '../../configs/config';
-import { registerHandler } from './handler/ipc-handler';
+import { initIpc } from './ipc';
 
 
 let mainWindow: Electron.BrowserWindow | null;
@@ -29,12 +29,13 @@ function createWindow() {
         );
     }
 
+    initIpc();
+
     mainWindow.on('closed', () => {
         mainWindow = null;
     });
 }
 
 app.whenReady().then(() => {
-    registerHandler();
     createWindow();
 });

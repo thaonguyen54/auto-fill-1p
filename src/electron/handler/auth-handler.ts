@@ -1,35 +1,20 @@
-import { IpcMainInvokeEvent } from "electron";
-import { Handler } from ".";
+import { SharedResources } from "../shared-resource";
 
-export type AuthCredentials = {
+type AuthCredentials = {
     email: string;
-    secretKey: string;
     password: string;
+    secretKey: string;
 }
-
-export class AuthHandler extends Handler<any> {
-    channel: string;
-
-    constructor(channel: string) {
-        super();
-        this.channel = channel;
+export class AuthHandler extends SharedResources {
+    login(authCredentials: AuthCredentials) {
+        const tokenProvider = SharedResources.getTokenProviderInstance();
+        const token = "Token after login sucessful"
+        console.log("Logging in with credentials: ", authCredentials);
+        tokenProvider.setToken(token);
+        return token;
     }
 
-    handle = (event: IpcMainInvokeEvent, authCredentials: AuthCredentials): Promise<any> => {
-        if(this.channel === 'signup'){
-            return this.handleSignUp(authCredentials);
-        } else {
-            return this.handleLogin(authCredentials);
-        }
-    }
-
-    handleSignUp = async (authCredentials: AuthCredentials) => {
-        console.log("Signup >>>>", authCredentials);
-        return authCredentials;
-    }
-
-    handleLogin = async (authCredentials: AuthCredentials) => {
-        console.log("Login >>>>", authCredentials);
-        return authCredentials;
+    signUp() {
+        return "Sign up successful!";
     }
 }
