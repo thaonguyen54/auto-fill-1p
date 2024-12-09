@@ -1,14 +1,22 @@
 import { spawnSync } from "child_process";
 
 import tokenPublisher from "../publisher/token-publisher";
-import { IObserver } from "../publisher/observer";
+import type { IObserver } from "../publisher/type";
+import type { AuthCredentials } from "../type";
 
 import { COMMAND } from "./constants";
-import type { AuthCredentials } from "../type";
 
 class AuthHandler implements IObserver {
     private token: string;
-    
+    private static instance: AuthHandler;
+
+    public static getInstance(): AuthHandler {
+        if (!AuthHandler.instance) {
+            AuthHandler.instance = new AuthHandler();
+        }
+        return AuthHandler.instance;
+    }
+
     constructor() {
         this.token = '';
         tokenPublisher.subcribe(this);
@@ -22,7 +30,7 @@ class AuthHandler implements IObserver {
         const args = [
             'account',
             'add',
-            '--address', 'https://my.1password.com/',
+            '--address', authCredentials.address,
             '--email', authCredentials.email,
             '--secret-key', authCredentials.secretKey,
             '--signin',
@@ -47,5 +55,4 @@ class AuthHandler implements IObserver {
     }
 }
 
-const authHandler = new AuthHandler();
-export default authHandler;
+export default AuthHandler.getInstance();

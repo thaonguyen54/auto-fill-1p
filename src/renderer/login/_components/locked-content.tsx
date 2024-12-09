@@ -36,11 +36,12 @@ const SMALL_ITEMS = [
 
 const LockedContent = () => {
   const formStore = useFormStore();
+  const [address, setAddress] = React.useState<string>("");
 
   return (
     <div className="pt-[22vh] max-w-[420px] flex flex-grow flex-col w-auto  mr-16 items-start p-0">
       {formStore.newFormEnabled ? (
-        <NewSignInForm />
+        <NewSignInForm address={address} />
       ) : !formStore.isLoading ? (
         <InitalForm />
       ) : (
@@ -48,7 +49,7 @@ const LockedContent = () => {
       )}
 
       <footer className="mt-12">
-        <ComboboxLocale />
+        <ComboboxLocale setAddress={setAddress} />
         <div className="mt-12">
           {FOOTER_ITEMS.map((item, index) => {
             return (

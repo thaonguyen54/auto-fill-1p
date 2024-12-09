@@ -1,13 +1,21 @@
-import { IObserver } from "../publisher/observer";
-import tokenPublisher from "../publisher/token-publisher";
-
 import type { Vault } from "../type";
+import type { IObserver } from "../publisher/type";
+
+import tokenPublisher from "../publisher/token-publisher";
 import { COMMAND } from "./constants";
 
 import { execSync } from "child_process";
 
 class VaultHandler implements IObserver {
     private token: string;
+    private static instance: VaultHandler;
+
+    public static getInstance(): VaultHandler {
+        if (!VaultHandler.instance) {
+            VaultHandler.instance = new VaultHandler();
+        }
+        return VaultHandler.instance;
+    }
 
     constructor() {
         this.token = '';
@@ -24,5 +32,4 @@ class VaultHandler implements IObserver {
     }
 }
 
-const vaultHandler = new VaultHandler();
-export default vaultHandler;
+export default VaultHandler.getInstance();

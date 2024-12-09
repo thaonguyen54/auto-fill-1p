@@ -1,9 +1,17 @@
-import { IObserver } from "./observer";
-import { IPublisher } from "./publisher";
+import type { IObserver, IPublisher } from "./type";
 
 class TokenPublisher implements IPublisher {
     private token: string = '';
     private observers: IObserver[] = [];
+
+    private static instance: TokenPublisher;
+
+    public static getInstance(): TokenPublisher {
+        if (!TokenPublisher.instance) {
+            TokenPublisher.instance = new TokenPublisher();
+        }
+        return TokenPublisher.instance;
+    }
 
     subcribe(observer: IObserver): void {
         this.observers.push(observer);
@@ -27,5 +35,4 @@ class TokenPublisher implements IPublisher {
     }
 }
 
-const tokenPublisher = new TokenPublisher();
-export default tokenPublisher;
+export default TokenPublisher.getInstance();

@@ -16,23 +16,29 @@ import {
 } from "@components/ui/command";
 
 type OnePasswordLocale = {
-  link: string;
+  address: string;
   locale: string;
 };
 
 const ONEPASSWORD_LOCALES: OnePasswordLocale[] = [
-  { link: "1Password.ca", locale: "ca" },
-  { link: "1Password.eu", locale: "eu" },
-  { link: "ent.1Password.com", locale: "en" },
+  { address: "https://my.1password.ca/", locale: "ca" },
+  { address: "https://my.1password.eu/", locale: "eu" },
+  { address: "https://my.ent.1password.com/", locale: "ent" },
+  { address: "https://my.1password.com/", locale: "en" },
 ];
 
-export function ComboboxLocale() {
+type ComboboxLocaleProps = {
+  setAddress: React.Dispatch<React.SetStateAction<string>>;
+};
+
+export function ComboboxLocale({ setAddress }: ComboboxLocaleProps) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState<OnePasswordLocale>(
-    ONEPASSWORD_LOCALES[2]
+    ONEPASSWORD_LOCALES[3]
   );
 
   const handleSelect = (locale: OnePasswordLocale) => {
+    setAddress(locale.locale);
     setValue(locale);
     setOpen(false);
   };
@@ -46,7 +52,7 @@ export function ComboboxLocale() {
           aria-expanded={open}
           className="w-[200px] justify-between hover:border-light-blue border"
         >
-          {value.link}
+          {value.address}
           <ChevronIcon width="6" height="6" />
         </Button>
       </PopoverTrigger>
@@ -57,10 +63,10 @@ export function ComboboxLocale() {
               {ONEPASSWORD_LOCALES.map((locale) => (
                 <CommandItem
                   key={locale.locale}
-                  value={locale.link}
+                  value={locale.address}
                   onSelect={() => handleSelect(locale)}
                 >
-                  {locale.link}
+                  {locale.address}
                 </CommandItem>
               ))}
             </CommandGroup>
