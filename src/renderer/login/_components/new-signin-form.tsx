@@ -20,7 +20,7 @@ interface SignInFormProps {
 }
 
 interface NewSignInFormProps {
-  address: string
+  address: string;
 }
 
 const NewSignInForm = ({ address }: NewSignInFormProps) => {
@@ -34,14 +34,17 @@ const NewSignInForm = ({ address }: NewSignInFormProps) => {
       setError("Invalid email");
     } else {
       data.address = address;
-      const t1 = await (window as any).electronAPI.auth("auth", "login", data);
-      if (t1.success) {
-        console.log("T1 >>>>", t1.message);
-        const t2 = await (window as any).electronAPI.vault("vault", "get-all");
-        console.log("T2 >>>>", t2);
-      }
+      console.log(data);
 
+      const t1 = await (window as any).electronAPI.auth("auth", "login", data);
       console.log("T1 >>>>", t1);
+
+      // if (t1.success) {
+      //   console.log("T1 >>>>", t1.message);
+      //   const t2 = await (window as any).electronAPI.vault("vault", "get-all");
+      //   console.log("T2 >>>>", t2);
+      // }
+
       setError("");
     }
   };

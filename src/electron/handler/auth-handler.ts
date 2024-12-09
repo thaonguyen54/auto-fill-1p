@@ -1,4 +1,4 @@
-import { spawnSync } from "child_process";
+import { spawn } from "child_process";
 
 import tokenPublisher from "../publisher/token-publisher";
 import type { IObserver } from "../publisher/type";
@@ -37,17 +37,31 @@ class AuthHandler implements IObserver {
             '--raw'
         ];
 
-        const result = spawnSync(COMMAND, args, {
-            input: `${authCredentials.password}\n`,
-            encoding: 'utf8',
-        });
+        const process = spawn(COMMAND, args);
 
-        if (result.status !== 0) {
-            return {success: false, message: 'Check your credentials or network and try again.'};
-        }else{
-            tokenPublisher.setToken(result.stdout);
-            return {success: true, message: 'Login successful!'};
-        }
+        return new Promise((resolve, reject) => {
+            process.stdout.on('data', (data) => {
+                resolve(data.toString());
+            });
+
+            process.stderr.on('data', (data) => {
+                reject(data.toString());
+            });
+
+            let stdoutData = '';
+            let stderrData = '';
+
+            process.stdin.write(`${authCredentials.password}\n`);
+            process.stdin.end();
+
+            process.on('exit', (code) => {
+                if (code === 0) {                    
+                    resolve(stdoutData);
+                } else {
+                    reject(new Error(`Process exited with code ${code}, stderr: ${stderrData}`));  // Xử lý lỗi
+                }
+            });
+        })
     }
 
     signUp() {

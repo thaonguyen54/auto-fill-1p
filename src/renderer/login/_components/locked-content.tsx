@@ -36,7 +36,7 @@ const SMALL_ITEMS = [
 
 const LockedContent = () => {
   const formStore = useFormStore();
-  const [address, setAddress] = React.useState<string>("");
+  const [address, setAddress] = React.useState<string>("https://my.1password.com");
 
   return (
     <div className="pt-[22vh] max-w-[420px] flex flex-grow flex-col w-auto  mr-16 items-start p-0">
