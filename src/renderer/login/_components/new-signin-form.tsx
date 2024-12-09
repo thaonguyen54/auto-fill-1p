@@ -34,14 +34,13 @@ const NewSignInForm = ({ address }: NewSignInFormProps) => {
       setError("Invalid email");
     } else {
       data.address = address;
-      console.log(data);
 
       const t1 = await(window as any).electronAPI.auth("auth", "login", data);
       console.log("T1 >>>>", t1);
 
       const t2 = await(window as any).electronAPI.vault("vault", "get-all");
       console.log("T2 >>>>", t2);
-      
+
       setError("");
     }
   };

@@ -43,7 +43,6 @@ class AuthHandler implements IObserver {
         return new Promise((resolve, reject) => {
             process.stdout.on('data', (data) => {
                 TokenPublisher.setToken(data.toString());
-                resolve(data.toString());
             });
 
             process.stderr.on('data', (data) => {
