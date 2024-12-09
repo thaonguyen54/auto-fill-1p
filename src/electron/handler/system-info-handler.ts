@@ -1,9 +1,6 @@
-import { execSync } from "child_process";
-import { SharedResources } from "../shared-resource";
-
-export class SystemInfoHandler extends SharedResources {
+export class SystemInfoHandler {
     viewSystemInfo() {
-        console.log("Token shared: ", SharedResources.tokenProvider.getToken());
+        console.log("Token shared: ");
         return "Sys info";
     }
 }
