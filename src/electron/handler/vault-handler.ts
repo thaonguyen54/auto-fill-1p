@@ -4,7 +4,7 @@ import type { IObserver } from "../publisher/type";
 import tokenPublisher from "../publisher/token-publisher";
 import { COMMAND } from "./constants";
 
-import { execSync } from "child_process";
+import { exec } from "child_process";
 
 class VaultHandler implements IObserver {
     private token: string;
@@ -22,13 +22,27 @@ class VaultHandler implements IObserver {
         tokenPublisher.subcribe(this);
     }
 
-    update(data: any): void {
+    update(data: any): void {   
         this.token = data;
     }
 
-    getVaultList(): Vault[] {
-        const vaults = execSync(`${COMMAND} vault list --session ${this.token} --format=json`);
-        return JSON.parse(vaults.toString());
+    async getVaultList(): Promise<Vault[]> {
+        const execPromise = (cmd: string): Promise<string> => {
+            return new Promise((resolve, reject) => {
+                exec(cmd, (error, stdout) => {
+                    if (error) {
+                        reject(error);
+                    }
+
+                    resolve(stdout);
+                });
+            });
+        }
+
+        const result = await execPromise(`${COMMAND} vault list --session ${this.token} --format=json`);
+        const vaults: Vault[] = JSON.parse(result);
+
+        return vaults
     }
 }
 

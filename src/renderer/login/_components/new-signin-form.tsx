@@ -36,15 +36,12 @@ const NewSignInForm = ({ address }: NewSignInFormProps) => {
       data.address = address;
       console.log(data);
 
-      const t1 = await (window as any).electronAPI.auth("auth", "login", data);
+      const t1 = await(window as any).electronAPI.auth("auth", "login", data);
       console.log("T1 >>>>", t1);
 
-      // if (t1.success) {
-      //   console.log("T1 >>>>", t1.message);
-      //   const t2 = await (window as any).electronAPI.vault("vault", "get-all");
-      //   console.log("T2 >>>>", t2);
-      // }
-
+      const t2 = await(window as any).electronAPI.vault("vault", "get-all");
+      console.log("T2 >>>>", t2);
+      
       setError("");
     }
   };

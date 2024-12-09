@@ -1,10 +1,11 @@
 import { spawn } from "child_process";
 
-import tokenPublisher from "../publisher/token-publisher";
+
 import type { IObserver } from "../publisher/type";
 import type { AuthCredentials } from "../type";
 
 import { COMMAND } from "./constants";
+import TokenPublisher from "../publisher/token-publisher";
 
 class AuthHandler implements IObserver {
     private token: string;
@@ -19,7 +20,7 @@ class AuthHandler implements IObserver {
 
     constructor() {
         this.token = '';
-        tokenPublisher.subcribe(this);
+        TokenPublisher.subcribe(this);
     }
 
     update(data: any): void {
@@ -41,6 +42,7 @@ class AuthHandler implements IObserver {
 
         return new Promise((resolve, reject) => {
             process.stdout.on('data', (data) => {
+                TokenPublisher.setToken(data.toString());
                 resolve(data.toString());
             });
 
@@ -48,17 +50,14 @@ class AuthHandler implements IObserver {
                 reject(data.toString());
             });
 
-            let stdoutData = '';
-            let stderrData = '';
-
             process.stdin.write(`${authCredentials.password}\n`);
             process.stdin.end();
 
             process.on('exit', (code) => {
-                if (code === 0) {                    
-                    resolve(stdoutData);
+                if (code === 0) {
+                    resolve({ message: "Login successful!" });
                 } else {
-                    reject(new Error(`Process exited with code ${code}, stderr: ${stderrData}`));  // Xử lý lỗi
+                    reject(new Error(`Process exited with code ${code}`));  // Xử lý lỗi
                 }
             });
         })

@@ -27,7 +27,7 @@ class TokenPublisher implements IPublisher {
 
     setToken(token: string): void {
         this.token = token;
-        this.notify(this.token);
+        this.notify(token);
     }
 
     getToken(): string {
