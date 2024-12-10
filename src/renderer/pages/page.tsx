@@ -8,7 +8,7 @@ import { RouterType } from "./type";
 
 const PAGES: RouterType[] = [
   {
-    path: "/", // Root path
+    path: "/",
     element: <Login />,
     title: "Login",
   },
