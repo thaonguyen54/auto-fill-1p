@@ -1,11 +1,11 @@
 import { spawn } from "child_process";
 
-
 import type { IObserver } from "../publisher/type";
 import type { AuthCredentials } from "../type";
 
 import { COMMAND } from "./constants";
 import TokenPublisher from "../publisher/token-publisher";
+import { loadContentViews } from "../main";
 
 class AuthHandler implements IObserver {
     private token: string;
@@ -54,7 +54,8 @@ class AuthHandler implements IObserver {
 
             process.on('exit', (code) => {
                 if (code === 0) {
-                    resolve({ message: "Login successful!" });
+                    loadContentViews('home', 'home');
+                    resolve({ success: true, message: "Login successful!" });
                 } else {
                     reject(new Error(`Process exited with code ${code}`));  // Xử lý lỗi
                 }
