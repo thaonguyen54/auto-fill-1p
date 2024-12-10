@@ -10,31 +10,43 @@ import { useForm } from "react-hook-form";
 import ErrorToast from "./error-toast";
 import useFormStore from "@stores/formStore";
 
-
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 interface SignInFormProps {
   email: string;
+  address: string;
   secretKey: string;
   password: string;
 }
 
-const NewSignInForm = () => {
+interface NewSignInFormProps {
+  address: string;
+}
+
+const NewSignInForm = ({ address }: NewSignInFormProps) => {
   const formStore = useFormStore();
 
   const { register, handleSubmit } = useForm<SignInFormProps>();
   const [error, setError] = useState<string>("");
 
-  const handleValidate = (data: SignInFormProps) => {
+  const handleSignIn = async (data: SignInFormProps) => {
     if (!EMAIL_REGEX.test(data.email)) {
       setError("Invalid email");
     } else {
+      data.address = address;
+
+      const t1 = await(window as any).electronAPI.auth("auth", "login", data);
+      console.log("T1 >>>>", t1);
+
+      const t2 = await(window as any).electronAPI.vault("vault", "get-all");
+      console.log("T2 >>>>", t2);
+
       setError("");
     }
   };
 
   const onSubmit = (data: SignInFormProps) => {
-    handleValidate(data);
+    handleSignIn(data);
   };
 
   return (

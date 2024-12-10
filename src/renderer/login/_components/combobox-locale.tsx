@@ -16,23 +16,30 @@ import {
 } from "@components/ui/command";
 
 type OnePasswordLocale = {
-  link: string;
+  address: string;
   locale: string;
+  link: string;
 };
 
 const ONEPASSWORD_LOCALES: OnePasswordLocale[] = [
-  { link: "1Password.ca", locale: "ca" },
-  { link: "1Password.eu", locale: "eu" },
-  { link: "ent.1Password.com", locale: "en" },
+  { address: "https://my.1password.ca/", locale: "ca", link: "1password.ca" },
+  { address: "https://my.1password.eu/", locale: "eu", link: "1password.eu" },
+  { address: "https://my.ent.1password.com/", locale: "ent", link: "1entpassword.com" },
+  { address: "https://my.1password.com/", locale: "en", link: "1password.com" },
 ];
 
-export function ComboboxLocale() {
+type ComboboxLocaleProps = {
+  setAddress: React.Dispatch<React.SetStateAction<string>>;
+};
+
+export function ComboboxLocale({ setAddress }: ComboboxLocaleProps) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState<OnePasswordLocale>(
-    ONEPASSWORD_LOCALES[2]
+    ONEPASSWORD_LOCALES[3]
   );
 
   const handleSelect = (locale: OnePasswordLocale) => {
+    setAddress(locale.address);
     setValue(locale);
     setOpen(false);
   };
@@ -57,7 +64,7 @@ export function ComboboxLocale() {
               {ONEPASSWORD_LOCALES.map((locale) => (
                 <CommandItem
                   key={locale.locale}
-                  value={locale.link}
+                  value={locale.address}
                   onSelect={() => handleSelect(locale)}
                 >
                   {locale.link}
