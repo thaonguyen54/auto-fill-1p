@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router";
-import { RouterType } from "./type";
+import type { RouterType } from "./type";
 import pagesData from "./page";
 
 const InitRoute = () => {

@@ -4,7 +4,7 @@ import Home from "./home";
 import Vault from "./vault";
 import Login from "./login";
 
-import { RouterType } from "./type";
+import type { RouterType } from "./type";
 
 const PAGES: RouterType[] = [
   {
