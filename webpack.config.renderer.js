@@ -1,5 +1,5 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ROUTES = require('./src/scripts/routing');
 
 module.exports = {
     mode: 'development',
@@ -12,7 +12,8 @@ module.exports = {
         }
     },
     entry: {
-        app: './src/renderer/app.tsx'
+        app: './src/renderer/app.tsx',
+        home: './src/renderer/pages/home/index.tsx'
     },
     target: 'electron-renderer',
     devtool: 'source-map',
@@ -42,15 +43,12 @@ module.exports = {
         compress: true,
         hot: true,
         port: 9000,
+        historyApiFallback: true,
     },
     output: {
         path: path.resolve(__dirname, "build"),
         filename: '[name].render.js',
         publicPath: './'
     },
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: './src/public/index.html'
-        })
-    ],
+    plugins: ROUTES,
 }

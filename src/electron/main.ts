@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, WebContentsView } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 import CONFIG from '../../configs/config';
@@ -34,6 +34,16 @@ function createWindow() {
     mainWindow.on('closed', () => {
         mainWindow = null;
     });
+}
+
+export function loadContentViews(endpoint: string, routing: string) {
+    if(CONFIG.ENV === 'development') {
+        mainWindow?.webContents.loadURL(`http://localhost:9000/${endpoint}`);
+    }else{
+        mainWindow?.webContents.loadURL(url.format({
+            pathname: path.join(__dirname, `../build/${routing}.html`),
+        }));
+    }
 }
 
 app.whenReady().then(() => {

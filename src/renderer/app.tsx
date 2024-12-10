@@ -1,17 +1,17 @@
 import React from "react";
-import { createRoot } from "react-dom/client";
-import "../styles.css";
-import Login from "./login";
+import { BrowserRouter as Router } from "react-router";
 
-const container = document.getElementById("root");
+import "../styles.css";
+
+import RootContainer from "../utils/dom";
+import InitRoute from "./pages/router";
 
 const App = () => {
   return (
-    <div className="w-full h-full">
-      <Login />
-    </div>
+    <Router>
+      <InitRoute />
+    </Router>
   );
 };
 
-const root = createRoot(container!); // createRoot(container!) if you use TypeScript
-root.render(React.createElement(App));
+RootContainer.getRoot().render(<App />);
