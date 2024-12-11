@@ -36,6 +36,16 @@ function createWindow() {
     });
 }
 
+export function loadContentViews(endpoint: string, routing: string) {
+    if(CONFIG.ENV === 'development') {
+        mainWindow?.webContents.loadURL(`http://localhost:9000/${endpoint}`);
+    }else{
+        mainWindow?.webContents.loadURL(url.format({
+            pathname: path.join(__dirname, `../build/${routing}.html`),
+        }));
+    }
+}
+
 app.whenReady().then(() => {
     createWindow();
 });

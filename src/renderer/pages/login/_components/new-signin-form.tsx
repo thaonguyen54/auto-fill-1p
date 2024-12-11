@@ -35,11 +35,10 @@ const NewSignInForm = ({ address }: NewSignInFormProps) => {
     } else {
       data.address = address;
 
-      const t1 = await(window as any).electronAPI.auth("auth", "login", data);
-      console.log("T1 >>>>", t1);
-
-      const t2 = await(window as any).electronAPI.vault("vault", "get-all");
-      console.log("T2 >>>>", t2);
+      const response = await(window as any).electronAPI.auth("auth", "login", data);
+      if(response.success) {
+        console.log(response.message);
+      }
 
       setError("");
     }

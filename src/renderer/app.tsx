@@ -1,17 +1,28 @@
 import React from "react";
-import { createRoot } from "react-dom/client";
+import { BrowserRouter as Router } from "react-router";
+import CONFIG from "../../configs/config";
 import "../styles.css";
-import Login from "./login";
 
-const container = document.getElementById("root");
+import RootContainer from "../utils/dom";
+import InitRoute from "./pages/router";
+import Login from "./pages/login";
+
+const initApp = () => {
+  if (CONFIG.ENV === "development") {
+    return (
+      <Router>
+        <InitRoute />
+      </Router>
+    );
+  }else{
+    return <Login />;
+  }
+};
 
 const App = () => {
   return (
-    <div className="w-full h-full">
-      <Login />
-    </div>
+    initApp()
   );
 };
 
-const root = createRoot(container!); // createRoot(container!) if you use TypeScript
-root.render(React.createElement(App));
+RootContainer.getRoot().render(<App />);
