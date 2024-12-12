@@ -3,7 +3,7 @@ import { cva, VariantProps } from "class-variance-authority";
 import React from "react";
 
 const gridVariants = cva(
-  "grid", // Base class
+  "grid",
   {
     variants: {
       columns: {
