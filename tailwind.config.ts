@@ -11,6 +11,11 @@ module.exports = {
       boxShadow: {
         'inset-soft-peach': 'inset 0 0 0 1px #e6b6ac',
         'secondary-sky': '0 0 0 4px rgba(59, 130, 246, 1)'
+      },  
+      screens: {
+        '3xl': '1920px',
+        '4xl': '2560px',
+        '5xl': '3840px',
       },
       keyframes: {
         shake: {
@@ -58,6 +63,11 @@ module.exports = {
         'neutral-gray': '#cbcccd',
         'light-gray-blue': "#f6f7f",
         'soft-pink': '#fae5e1',
+        'off-white': '#eeeff2',
+        'gray-light': '#d4d4d4',
+        'white-soft': '#f6f7fb',
+        'white-ultra': '#fafafd',
+        'gray-muted': '#d7d9e0', 
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
@@ -97,6 +107,7 @@ module.exports = {
       },
     },
   },
+  
   plugins: [require("tailwindcss-animate")],
 }
 

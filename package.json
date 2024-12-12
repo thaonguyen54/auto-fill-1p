@@ -12,7 +12,7 @@
     "start:dev": "npm run config && npm run build:preload && concurrently -k \"npm:watch:static\" \"npm:build:renderer\" \"npm:build:main\"",
     "start:prod": "npm run config && npm run build:preload && concurrently && npm run static && npm run build:main",
     "remove-previous-config": "cd configs && del config.js && cd ..",
-    "config": "set ENV=prod&& npm run remove-previous-config && node ./src/scripts/script.js",
+    "config": "set ENV=dev&& npm run remove-previous-config && node ./src/scripts/script.js",
     "build": "electron-builder"
   },
   "keywords": [],

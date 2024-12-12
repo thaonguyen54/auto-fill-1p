@@ -5,6 +5,7 @@ import { Input } from "@components/ui/input";
 import { Label } from "@components/ui/label";
 import LinkIcon from "@components/icon/link-icon";
 import { Checkbox } from "@components/ui/checkbox";
+import Spinner from "@components/common/spinner";
 
 import { useForm } from "react-hook-form";
 import ErrorToast from "./error-toast";
@@ -25,6 +26,7 @@ interface NewSignInFormProps {
 
 const NewSignInForm = ({ address }: NewSignInFormProps) => {
   const formStore = useFormStore();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { register, handleSubmit } = useForm<SignInFormProps>();
   const [error, setError] = useState<string>("");
@@ -33,19 +35,26 @@ const NewSignInForm = ({ address }: NewSignInFormProps) => {
     if (!EMAIL_REGEX.test(data.email)) {
       setError("Invalid email");
     } else {
-      data.address = address;
+      try {
+        data.address = address;
+        setError("");
+        setIsLoading(true);
+        const response = await (window as any).electronAPI.auth(
+          "auth",
+          "login",
+          data
+        );
 
-      const response = await(window as any).electronAPI.auth("auth", "login", data);
-      if(response.success) {
-        console.log(response.message);
+        if(!response.success) {
+           setError(response.err.message);
+        }
+        
+      } catch (error: any) {
+        setError(error);
+      } finally {
+        setIsLoading(false);
       }
-
-      setError("");
     }
-  };
-
-  const onSubmit = (data: SignInFormProps) => {
-    handleSignIn(data);
   };
 
   return (
@@ -53,7 +62,7 @@ const NewSignInForm = ({ address }: NewSignInFormProps) => {
       <h1 className="font-sans font-semibold text-base">
         Sign in to your 1Password account
       </h1>
-      <form className="mt-3" onSubmit={handleSubmit(onSubmit)}>
+      <form className="mt-3" onSubmit={handleSubmit(handleSignIn)}>
         <Label
           htmlFor="email"
           className="text-light-secondary-gray font-normal"
@@ -110,7 +119,7 @@ const NewSignInForm = ({ address }: NewSignInFormProps) => {
             value="submit"
             className="rounded-3xl w-36 text-sm bg-light-blue hover:bg-light-primary-blue"
           >
-            Sign In
+            {isLoading ? <Spinner size={"sm"} /> : "Sign in"}
           </Button>
           <a
             className="text-light-primary-blue text-sm font-[625] hover:underline"

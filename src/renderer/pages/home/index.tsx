@@ -1,10 +1,14 @@
 import React from "react";
 import RootContainer from "../../../utils/dom";
 
+import Header from "./_components/header";
+import MainContent from "./_components/main-content";
+
 const Home = () => {
   return (
-    <div>
-      <h1>Home</h1>
+    <div className="w-full h-full min-h-screen">
+      <Header/>
+      <MainContent/>
     </div>
   );
 };
