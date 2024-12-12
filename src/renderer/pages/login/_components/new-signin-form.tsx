@@ -5,6 +5,7 @@ import { Input } from "@components/ui/input";
 import { Label } from "@components/ui/label";
 import LinkIcon from "@components/icon/link-icon";
 import { Checkbox } from "@components/ui/checkbox";
+import Spinner from "@components/common/spinner";
 
 import { useForm } from "react-hook-form";
 import ErrorToast from "./error-toast";
@@ -25,6 +26,7 @@ interface NewSignInFormProps {
 
 const NewSignInForm = ({ address }: NewSignInFormProps) => {
   const formStore = useFormStore();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { register, handleSubmit } = useForm<SignInFormProps>();
   const [error, setError] = useState<string>("");
@@ -37,7 +39,7 @@ const NewSignInForm = ({ address }: NewSignInFormProps) => {
 
       const response = await(window as any).electronAPI.auth("auth", "login", data);
       if(response.success) {
-        console.log(response.message);
+        setIsLoading(false);
       }
 
       setError("");
@@ -45,6 +47,7 @@ const NewSignInForm = ({ address }: NewSignInFormProps) => {
   };
 
   const onSubmit = (data: SignInFormProps) => {
+    setIsLoading(true);
     handleSignIn(data);
   };
 
@@ -110,7 +113,7 @@ const NewSignInForm = ({ address }: NewSignInFormProps) => {
             value="submit"
             className="rounded-3xl w-36 text-sm bg-light-blue hover:bg-light-primary-blue"
           >
-            Sign In
+           {isLoading ? (<Spinner size={"sm"}/>) : "Sign in"}
           </Button>
           <a
             className="text-light-primary-blue text-sm font-[625] hover:underline"
