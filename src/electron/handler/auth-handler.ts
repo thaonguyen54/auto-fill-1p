@@ -6,6 +6,7 @@ import type { AuthCredentials } from "../type";
 import { COMMAND } from "./constants";
 import TokenPublisher from "../publisher/token-publisher";
 import { loadContentViews } from "../main";
+import { removeErrorPrefix } from "../../utils/clean-err";
 
 class AuthHandler implements IObserver {
     private token: string;
@@ -43,10 +44,14 @@ class AuthHandler implements IObserver {
         return new Promise((resolve, reject) => {
             process.stdout.on('data', (data) => {
                 TokenPublisher.setToken(data.toString());
+                resolve({ success: true, message: "Login successful!" });
             });
 
+            let stderr = '';
+
             process.stderr.on('data', (data) => {
-                reject(data.toString());
+                stderr += data.toString();
+                console.log("std", stderr);
             });
 
             process.stdin.write(`${authCredentials.password}\n`);
@@ -55,9 +60,14 @@ class AuthHandler implements IObserver {
             process.on('exit', (code) => {
                 if (code === 0) {
                     loadContentViews('home', 'home');
-                    resolve({ success: true, message: "Login successful!" });
                 } else {
-                    reject(new Error(`Process exited with code ${code}`));  // Xử lý lỗi
+                    resolve({
+                        success: false, err: {
+                            message: removeErrorPrefix(stderr),
+                        }
+                    });
+
+                    reject(new Error(stderr));
                 }
             });
         })

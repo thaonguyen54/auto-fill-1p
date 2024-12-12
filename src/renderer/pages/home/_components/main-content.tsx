@@ -2,44 +2,9 @@ import Grid from "@components/common/grid";
 import React from "react";
 import Vault from "./vault";
 
-const VAULTS = [
-  {
-    vault: <Vault />,
-  },
-  {
-    vault: <Vault />,
-  },
-  {
-    vault: <Vault />,
-  },
-  {
-    vault: <Vault />,
-  },
-  {
-    vault: <Vault />,
-  },
-  {
-    vault: <Vault />,
-  },
-  {
-    vault: <Vault />,
-  },
-  {
-    vault: <Vault />,
-  },
-  {
-    vault: <Vault />,
-  },
-  {
-    vault: <Vault />,
-  },
-  {
-    vault: <Vault />,
-  },
-  {
-    vault: <Vault />,
-  },
-];
+const VAULTS = Array.from({ length: 10 }, () => ({
+  vault: <Vault />,
+}));
 
 const MainContent = () => {
   return (

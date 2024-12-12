@@ -1,7 +1,9 @@
-import ArrowIcon from '@components/icon/arrow-icon';
-import SettingIcon from '@components/icon/setting-icon';
+import ArrowIcon from "@components/icon/arrow-icon";
+import SettingIcon from "@components/icon/setting-icon";
 
-import React from 'react'
+import React from "react";
+
+const VAULT_LIST_AVATAR = "https://a.1passwordusercontent.com/JKRNV44YYJCQBEUIYHMP2DAHH4/e34v23yfgzc7debxdcgookapuu.png";
 
 const Vault = () => {
   return (
@@ -11,7 +13,7 @@ const Vault = () => {
           <div className="before:content-[' '] border-t border-solid border-gray-300 absolute h-2 bottom-0 left-0 right-0"></div>
           <div className="absolute right-6 top-5 z-10">
             <img
-              src="https://a.1passwordusercontent.com/JKRNV44YYJCQBEUIYHMP2DAHH4/e34v23yfgzc7debxdcgookapuu.png"
+              src={VAULT_LIST_AVATAR}
               alt="Avatar"
               className="w-10 h-10 rounded-full"
             />
@@ -34,6 +36,6 @@ const Vault = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Vault;
