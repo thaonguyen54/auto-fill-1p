@@ -1,6 +1,6 @@
 import React from "react";
-import type { User } from "../../../../global.type";
-import wrapPromise from "../../../../utils/wrap-promise";
+import type { User } from "@src/global.type";
+import wrapPromise from "@utils/wrap-promise";
 
 let userResource: { read: () => User } | null = null;
 

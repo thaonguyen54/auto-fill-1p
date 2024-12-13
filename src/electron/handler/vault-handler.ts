@@ -1,6 +1,6 @@
 
 import type { IObserver } from "../publisher/type";
-import type { VaultType } from "../../global.type";
+import type { VaultType } from "@src/global.type";
 
 import tokenPublisher from "../publisher/token-publisher";
 import { COMMAND } from "./constants";
@@ -49,9 +49,9 @@ class VaultHandler implements IObserver {
             });
         }
 
-        const result = await execPromise(`${COMMAND} vault list --session ${this.getData(ResourceType.TOKEN) } --format=json`);
+        const result = await execPromise(`${COMMAND} vault list --session ${this.getData(ResourceType.TOKEN)} --format=json`);
         const vaults: VaultType[] = JSON.parse(result);
-        
+
         return vaults
     }
 }

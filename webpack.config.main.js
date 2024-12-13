@@ -3,7 +3,14 @@ const path = require('path');
 module.exports = {
     mode: 'development',
     resolve: {
-        extensions: ['.js', '.ts', '.tsx']
+        extensions: ['.js', '.ts', '.tsx'],
+        alias: {
+            '@components': path.resolve(__dirname, 'src/components'),
+            '@lib': path.resolve(__dirname, 'src/lib'),
+            '@stores': path.resolve(__dirname, 'src/stores'),
+            '@utils': path.resolve(__dirname, 'src/utils'),
+            '@src': path.resolve(__dirname, 'src'),
+        }
     },
     devtool: 'source-map',
     entry: {

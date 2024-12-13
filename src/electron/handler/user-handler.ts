@@ -1,5 +1,5 @@
 import type { IObserver } from "../publisher/type";
-import type { User } from "../../global.type";
+import type { User } from "@src/global.type";
 
 import tokenPublisher from "../publisher/token-publisher";
 import userPublisher from "../publisher/user-publisher";

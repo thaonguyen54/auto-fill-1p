@@ -1,8 +1,8 @@
 import React from "react";
 
-import type { VaultType } from "../../../../global.type";
+import type { VaultType } from "@src/global.type";
 import Vault from "./vault";
-import wrapPromise from "../../../../utils/wrap-promise";
+import wrapPromise from "@utils/wrap-promise";
 
 let vaultResource: { read: () => VaultType } | null = null;
 

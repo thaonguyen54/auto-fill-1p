@@ -3,7 +3,7 @@ import { BrowserRouter as Router } from "react-router";
 import CONFIG from "../../configs/config";
 import "../styles.css";
 
-import RootContainer from "../utils/dom";
+import RootContainer from "@utils/dom";
 import InitRoute from "./pages/router";
 import Login from "./pages/login";
 

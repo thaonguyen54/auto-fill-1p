@@ -1,5 +1,5 @@
 import { ResourceType } from "../enum";
-import type { User } from "../../global.type"
+import type { User } from "@src/global.type";
 import type { IObserver, IPublisher } from "./type";
 
 class UserPublisher implements IPublisher {

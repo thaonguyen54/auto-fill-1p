@@ -1,5 +1,5 @@
 import React from "react";
-import RootContainer from "../../../utils/dom";
+import RootContainer from "@utils/dom";
 
 import Header from "./_components/header";
 import MainContent from "./_components/main-content";

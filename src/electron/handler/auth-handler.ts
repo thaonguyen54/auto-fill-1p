@@ -2,14 +2,13 @@ import { exec, spawn } from "child_process";
 
 import type { IObserver } from "../publisher/type";
 import type { AuthCredentials } from "../type";
-import type { User } from "../../global.type";
 
 import { COMMAND } from "./constants";
 import tokenPublisher from "../publisher/token-publisher";
-import { loadContentViews } from "../main";
-import { removeErrorPrefix } from "../../utils/clean-err";
-import { ResourceType } from "../enum";
 import userPublisher from "../publisher/user-publisher";
+import { loadContentViews } from "../main";
+import { ResourceType } from "../enum";
+import { removeErrorPrefix } from "@utils/clean-err";
 
 class AuthHandler implements IObserver {
     private resources: { type: ResourceType, data: any }[]
