@@ -9,7 +9,7 @@ import { exec } from "child_process";
 import { ResourceType } from "../enum";
 
 class VaultHandler implements IObserver {
-    private resources: Map<ResourceType, any>;
+    private resources: { type: ResourceType, data: any }[];
     private static instance: VaultHandler;
 
     public static getInstance(): VaultHandler {
@@ -20,12 +20,20 @@ class VaultHandler implements IObserver {
     }
 
     constructor() {
-        this.resources = new Map();
-        tokenPublisher.subcribe(this, ResourceType.TOKEN);
+        this.resources = []
+        tokenPublisher.subcribe(this);
     }
 
     update(type: ResourceType, data: any): void {
-        this.resources.set(type, data);
+        if (data == null) {
+            this.resources = [];
+        } else {
+            this.resources.push({ type, data });
+        }
+    }
+
+    getData(type: ResourceType): any {
+        return this.resources.find(resource => resource.type === type)?.data
     }
 
     async getVaultList(): Promise<VaultType[]> {
@@ -41,7 +49,7 @@ class VaultHandler implements IObserver {
             });
         }
 
-        const result = await execPromise(`${COMMAND} vault list --session ${this.resources.get(ResourceType.TOKEN)} --format=json`);
+        const result = await execPromise(`${COMMAND} vault list --session ${this.getData(ResourceType.TOKEN) } --format=json`);
         const vaults: VaultType[] = JSON.parse(result);
         
         return vaults

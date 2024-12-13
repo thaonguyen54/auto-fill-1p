@@ -2,11 +2,11 @@ import { ResourceType } from "../enum";
 import type { IObserver, IPublisher } from "./type";
 
 class TokenPublisher implements IPublisher {
-    private observers: Map<ResourceType, IObserver[]>;
+    private observers:  IObserver[];
     private static instance: TokenPublisher;
 
     constructor() {
-        this.observers = new Map();
+        this.observers = [];
     }
 
     public static getInstance(): TokenPublisher {
@@ -17,12 +17,8 @@ class TokenPublisher implements IPublisher {
         return TokenPublisher.instance;
     }
 
-    subcribe(observer: IObserver, type: ResourceType): void {
-        if (!this.observers.has(type)) {
-            this.observers.set(type, []);
-        }
-
-        this.observers.get(type)?.push(observer);
+    subcribe(observer: IObserver): void {
+        this.observers.push(observer);      
     }
 
     unsubcribe(observer: IObserver): void {
@@ -30,12 +26,10 @@ class TokenPublisher implements IPublisher {
     }
 
     notify(type: ResourceType, data: any): void {
-        this.observers.get(type)?.forEach(observer =>
-            observer.update(type, data )
-        );
+        this.observers.forEach(observer => observer.update(type, data));
     }
 
-    setToken(token: string): void {
+    setToken(token: string | null): void {
         this.notify(ResourceType.TOKEN, token);
     }
 }
