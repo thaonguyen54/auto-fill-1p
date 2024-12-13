@@ -1,11 +1,11 @@
+import { ResourceType } from "../enum";
 
 export interface IObserver {
-    update(data: any): void;
+    update(type: ResourceType, data: any): void;
 }
 
 export interface IPublisher {
-    subcribe(observer: IObserver): void;
+    subcribe(observer: IObserver, type: ResourceType): void;
     unsubcribe(observer: IObserver): void;
-    notify(data: any): void;
+    notify(type: ResourceType, data: any): void;
 }
-

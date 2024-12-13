@@ -6,6 +6,7 @@ export const CHANNELS = {
     AUTH: {
         LOGIN: 'login',
         SIGN_UP: 'sign-up',
+        LOGOUT: 'logout',
     },
     VAULT: {
         CREATE: 'create',
@@ -14,4 +15,7 @@ export const CHANNELS = {
         GET_ALL: 'get-all',
         GET_ONE: 'get-one',
     },
+    USER: {
+        GET: 'get',
+    }
 }

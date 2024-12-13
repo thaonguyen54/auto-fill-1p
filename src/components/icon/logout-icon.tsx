@@ -1,9 +1,13 @@
 import React from "react";
 import type { IconProps } from "./type";
 
-const LogoutIcon = ({ width, height, className = "" }: IconProps) => {
+interface LogoutIconProps extends IconProps {
+  onClick?: () => void;
+}
+
+const LogoutIcon = ({ width, height, className = "", onClick }: LogoutIconProps) => {
   return (
-    <div className={className}>
+    <div onClick={onClick} className={className}>
       <svg
         fill="#000000"
         height={height}

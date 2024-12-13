@@ -4,6 +4,7 @@ import type { AuthCredentials } from "./type";
 
 import authHandler from "./handler/auth-handler";
 import vaultHandler from "./handler/vault-handler";
+import userHandler from "./handler/user-handler";
 
 function handleAuthentication(event: IpcMainInvokeEvent, action: string, authCredentials: AuthCredentials) {
     switch (action) {
@@ -11,6 +12,8 @@ function handleAuthentication(event: IpcMainInvokeEvent, action: string, authCre
             return authHandler.login(authCredentials);
         case CHANNELS.AUTH.SIGN_UP:
             return authHandler.signUp();
+        case CHANNELS.AUTH.LOGOUT:
+            return authHandler.lougout();
     }
 }
 
@@ -21,7 +24,15 @@ function handleVault(event: IpcMainInvokeEvent, action: string, vaultName: strin
     }
 }
 
+function handleUser(event: IpcMainInvokeEvent, action: string) {
+    switch (action) {
+        case CHANNELS.USER.GET:
+            return userHandler.getInfo();
+    }
+}
+
 export function initIpc() {
     ipcMain.handle('auth', handleAuthentication)
     ipcMain.handle('vault', handleVault)
+    ipcMain.handle('user', handleUser)
 }

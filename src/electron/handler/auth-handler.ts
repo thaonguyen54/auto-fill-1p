@@ -1,15 +1,18 @@
-import { spawn } from "child_process";
+import { exec, spawn } from "child_process";
 
 import type { IObserver } from "../publisher/type";
 import type { AuthCredentials } from "../type";
+import type { User } from "../../global.type";
 
 import { COMMAND } from "./constants";
-import TokenPublisher from "../publisher/token-publisher";
+import tokenPublisher from "../publisher/token-publisher";
 import { loadContentViews } from "../main";
 import { removeErrorPrefix } from "../../utils/clean-err";
+import { ResourceType } from "../enum";
+import userPublisher from "../publisher/user-publisher";
 
 class AuthHandler implements IObserver {
-    private token: string;
+    private resources: { type: ResourceType, data: any }[]
     private static instance: AuthHandler;
 
     public static getInstance(): AuthHandler {
@@ -20,12 +23,20 @@ class AuthHandler implements IObserver {
     }
 
     constructor() {
-        this.token = '';
-        TokenPublisher.subcribe(this);
+        this.resources = []
+        tokenPublisher.subcribe(this);
     }
 
-    update(data: any): void {
-        this.token = data;
+    update(type: ResourceType, data: any): void {
+        if (data == null) {
+            this.resources = [];
+        } else{
+            this.resources.push({ type, data });
+        }
+    }
+
+    getData(type: ResourceType): any {
+        return this.resources.find(resource => resource.type === type)?.data
     }
 
     login(authCredentials: AuthCredentials) {
@@ -43,7 +54,7 @@ class AuthHandler implements IObserver {
 
         return new Promise((resolve, reject) => {
             process.stdout.on('data', (data) => {
-                TokenPublisher.setToken(data.toString());
+                tokenPublisher.setToken(data.toString());
                 resolve({ success: true, message: "Login successful!" });
             });
 
@@ -75,6 +86,22 @@ class AuthHandler implements IObserver {
 
     signUp() {
         return "Sign up successful!";
+    }
+
+    lougout() {
+        const process = exec(`${COMMAND} signout --all`);
+        
+        return new Promise((resolve, reject) => {
+            process.on('exit', (code) => {
+                if (code === 0) {
+                    tokenPublisher.setToken(null);
+                    userPublisher.setUser(null);
+                    loadContentViews('', 'index');
+                } else {
+                    resolve(new Error("Failed to logout!"))
+                }
+            })
+        })
     }
 }
 
