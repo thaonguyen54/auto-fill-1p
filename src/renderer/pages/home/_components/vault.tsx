@@ -28,7 +28,10 @@ const Vault = ({ name, items }: VaultProps) => {
           <div className="after:content-[' '] bg-white-ultra z-[5] absolute h-[7px] bottom-0 left-0 right-0"></div>
         </div>
         <h2 className="text-xl mt-10 font-medium">{name}</h2>
-        <p>{items > 1 ? "items" : "item"}</p>
+        <p>
+          {items}
+          {items > 1 ? " items" : " item"}
+        </p>
       </div>
       <div className="flex border justify-between border-t border-solid border-t-off-white  rounded-b-sm">
         <div className="py-4 px-6  border-r border-solid border-r-off-white">
