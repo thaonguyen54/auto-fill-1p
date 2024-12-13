@@ -6,6 +6,7 @@ export const CHANNELS = {
     AUTH: {
         LOGIN: 'login',
         SIGN_UP: 'sign-up',
+        LOGOUT: 'logout',
     },
     VAULT: {
         CREATE: 'create',

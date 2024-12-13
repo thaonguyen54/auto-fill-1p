@@ -1,4 +1,4 @@
-import { spawn } from "child_process";
+import { exec, spawn } from "child_process";
 
 import type { IObserver } from "../publisher/type";
 import type { AuthCredentials } from "../type";
@@ -76,6 +76,21 @@ class AuthHandler implements IObserver {
 
     signUp() {
         return "Sign up successful!";
+    }
+
+    lougout() {
+        const process = exec(`${COMMAND} signout --all`);
+        
+        return new Promise((resolve, reject) => {
+            process.on('exit', (code) => {
+                if (code === 0) {
+                    tokenPublisher.setToken('');
+                    loadContentViews('', 'index');
+                } else {
+                    resolve(new Error("Failed to logout!"))
+                }
+            })
+        })
     }
 }
 

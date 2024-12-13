@@ -12,6 +12,8 @@ function handleAuthentication(event: IpcMainInvokeEvent, action: string, authCre
             return authHandler.login(authCredentials);
         case CHANNELS.AUTH.SIGN_UP:
             return authHandler.signUp();
+        case CHANNELS.AUTH.LOGOUT:
+            return authHandler.lougout();
     }
 }
 
