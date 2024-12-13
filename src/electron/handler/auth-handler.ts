@@ -4,12 +4,13 @@ import type { IObserver } from "../publisher/type";
 import type { AuthCredentials } from "../type";
 
 import { COMMAND } from "./constants";
-import TokenPublisher from "../publisher/token-publisher";
+import tokenPublisher from "../publisher/token-publisher";
 import { loadContentViews } from "../main";
 import { removeErrorPrefix } from "../../utils/clean-err";
+import { ResourceType } from "../enum";
 
 class AuthHandler implements IObserver {
-    private token: string;
+    private resources: Map<ResourceType, any>;
     private static instance: AuthHandler;
 
     public static getInstance(): AuthHandler {
@@ -20,12 +21,12 @@ class AuthHandler implements IObserver {
     }
 
     constructor() {
-        this.token = '';
-        TokenPublisher.subcribe(this);
+        this.resources = new Map();
+        tokenPublisher.subcribe(this, ResourceType.TOKEN);
     }
 
-    update(data: any): void {
-        this.token = data;
+    update(type: ResourceType, data: any): void {
+        this.resources.set(type, data);
     }
 
     login(authCredentials: AuthCredentials) {
@@ -43,7 +44,7 @@ class AuthHandler implements IObserver {
 
         return new Promise((resolve, reject) => {
             process.stdout.on('data', (data) => {
-                TokenPublisher.setToken(data.toString());
+                tokenPublisher.setToken(data.toString());
                 resolve({ success: true, message: "Login successful!" });
             });
 
