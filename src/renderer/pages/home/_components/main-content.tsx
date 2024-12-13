@@ -1,36 +1,39 @@
+import React, { Suspense } from "react";
 import Grid from "@components/common/grid";
-import React from "react";
-import Vault from "./vault";
 
-const VAULTS = Array.from({ length: 10 }, () => ({
-  vault: <Vault />,
-}));
+import VaultSkeleton from "./vault-skeleton";
+import VaultList from "./vault-list";
+
+import MainHeaderSkeleton from "./main-header-skeleton";
+import MainHeader from "./main-header";
+
+const generateVaultSkeletons = () => {
+  const count = caculateVaultSkeleton();
+
+  return Array.from({ length: count }, (_, index) => (
+    <VaultSkeleton key={index} />
+  ));
+};
+
+const caculateVaultSkeleton = () => {
+  const GAP = 40;
+  const ITEM_WIDTH = 274
+
+  const total = Math.floor((window.innerWidth + GAP) / (ITEM_WIDTH + GAP));
+  return total * 2;
+}
+
 
 const MainContent = () => {
   return (
     <div className="p-8 w-full h-full pt-28">
-      <div className="mb-6">
-        <h2 className="text-2xl font-semibold pb-3">
-          Welcome to 1Password, Nhat Thao.
-        </h2>
-        <p>
-          Do even more with 1Password.{" "}
-          <span className="text-dark-secondary-blue hover:cursor-pointer">
-            Explore your account
-          </span>
-        </p>
-      </div>
-      <div className="flex  justify-between items-center">
-        <h2 className="text-xl font-semibold">Vaults</h2>
-        <button className="text-light-blue font-medium border p-2 border-light-blue rounded-full hover:bg-light-blue hover:text-white transition-colors">
-          + New Vault
-        </button>
-      </div>
-
+      <Suspense fallback={<MainHeaderSkeleton />}>
+        <MainHeader />
+      </Suspense>
       <Grid columns={"default"} gap={10}>
-        {VAULTS.map((item, index) => (
-          <div key={index}>{item.vault}</div>
-        ))}
+        <Suspense fallback={generateVaultSkeletons()}>
+          <VaultList />
+        </Suspense>
       </Grid>
     </div>
   );

@@ -14,4 +14,7 @@ export const CHANNELS = {
         GET_ALL: 'get-all',
         GET_ONE: 'get-one',
     },
+    USER: {
+        GET: 'get',
+    }
 }
