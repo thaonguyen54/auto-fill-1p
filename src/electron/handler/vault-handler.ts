@@ -5,8 +5,8 @@ import type { VaultType } from "@src/global.type";
 import tokenPublisher from "../publisher/token-publisher";
 import { COMMAND } from "./constants";
 
-import { exec } from "child_process";
 import { ResourceType } from "../enum";
+import { execPromise } from "@utils/exec-promise";
 
 class VaultHandler implements IObserver {
     private resources: { type: ResourceType, data: any }[];
@@ -37,22 +37,13 @@ class VaultHandler implements IObserver {
     }
 
     async getVaultList(): Promise<VaultType[]> {
-        const execPromise = (cmd: string): Promise<string> => {
-            return new Promise((resolve, reject) => {
-                exec(cmd, (error, stdout) => {
-                    if (error) {
-                        reject(error);
-                    }
-
-                    resolve(stdout);
-                });
-            });
-        }
-
-        const result = await execPromise(`${COMMAND} vault list --session ${this.getData(ResourceType.TOKEN)} --format=json`);
-        const vaults: VaultType[] = JSON.parse(result);
-
+        const vaults = await execPromise<VaultType[]>(`${COMMAND} vault list --session ${this.getData(ResourceType.TOKEN)} --format=json`);
         return vaults
+    }
+
+    async createVault(vault: VaultType): Promise<VaultType> {
+        const result = await execPromise<VaultType>(`${COMMAND} vault create "${vault.name}" ${vault.description && ` --description ${vault.description}`} --session ${this.getData(ResourceType.TOKEN)} --format=json`);
+        return result;
     }
 }
 

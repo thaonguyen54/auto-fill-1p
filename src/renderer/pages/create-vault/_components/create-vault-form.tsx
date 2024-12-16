@@ -17,7 +17,7 @@ const KEY_ICON =
   "https://a.1passwordusercontent.com/JKRNV44YYJCQBEUIYHMP2DAHH4/e34v23yfgzc7debxdcgookapuu.png";
 
 interface CreateVaultFormProps {
-  vaultName: string;
+  name: string;
   description: string;
 }
 
@@ -27,9 +27,18 @@ const ICONS = Array.from({ length: 30 }, () => (
 
 const CrateVaultForm = () => {
   const { register, handleSubmit } = useForm<CreateVaultFormProps>();
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const handleCreateNewVault = async (data: CreateVaultFormProps) => {
-    console.log(data);
+    try {
+      setIsLoading(true);
+      await (window as any).electronAPI.vault("vault", "create", data);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setIsLoading(false);
+      (window as any).electronAPI.openBrowserView("home");
+    }
   };
 
   return (
@@ -65,7 +74,7 @@ const CrateVaultForm = () => {
             <Input
               className="h-11 border-black focus-visible:ring-[2.5px] focus-visible:ring-offset-1 focus-visible:ring-light-blue focus:outline-none"
               type="vault-name"
-              {...register("vaultName")}
+              {...register("name", { required: true })}
             />
             <Label htmlFor="vault-name">Description {"(optional)"}</Label>
             <Textarea
@@ -75,10 +84,10 @@ const CrateVaultForm = () => {
             />
             <Button
               className="w-full h-11 font-normal text-base hover:bg-gray-200 border border-gray-light"
-              variant={"outline"}
+              variant="outline"
               type="submit"
             >
-              Create Vault
+              {isLoading ? "Creating..." : "Create Vault"}
             </Button>
           </div>
         </form>

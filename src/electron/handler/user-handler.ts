@@ -6,8 +6,8 @@ import userPublisher from "../publisher/user-publisher";
 
 import { COMMAND } from "./constants";
 
-import { exec } from "child_process";
 import { ResourceType } from "../enum";
+import { execPromise } from "@utils/exec-promise";
 
 class UserHandler implements IObserver {
     private resources: { type: ResourceType, data: any }[];
@@ -41,20 +41,8 @@ class UserHandler implements IObserver {
     }
 
     async getInfo(): Promise<User> {
-        const execPromise = (cmd: string): Promise<User> => {
-            return new Promise((resolve, reject) => {
-                exec(cmd, (error, stdout) => {
-                    if (error) {
-                        reject(error);
-                    }
-                    resolve(JSON.parse(stdout) as User);
-                });
-            });
-        }
-
-        const user = await execPromise(`${COMMAND} account get --session ${this.getData(ResourceType.TOKEN)} --format=json`);
+        const user = await execPromise<User>(`${COMMAND} account get --session ${this.getData(ResourceType.TOKEN)} --format=json`);
         userPublisher.setUser(user);
-
         return user;
     }
 }

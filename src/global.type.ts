@@ -8,6 +8,7 @@ export type User = {
 export type VaultType = {
     id: string;
     name: string;
+    description?: string;
     content_version: number;
     created_at: string;
     updated_at: string;
