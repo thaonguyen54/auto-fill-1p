@@ -12,6 +12,10 @@ const fetchUser = () => {
   return userResource;
 };
 
+const redirectCreateVault = () => {
+  (window as any).electronAPI.openBrowserView("create-vault");
+}
+
 const MainHeader = () => {
   const user = fetchUser().read();
 
@@ -30,7 +34,7 @@ const MainHeader = () => {
       </div>
       <div className="flex  justify-between items-center">
         <h2 className="text-xl font-semibold">Vaults</h2>
-        <button className="text-light-blue font-medium border p-2 border-light-blue rounded-full hover:bg-light-blue hover:text-white transition-colors">
+        <button onClick={redirectCreateVault} className="text-light-blue font-medium border p-2 border-light-blue rounded-full hover:bg-light-blue hover:text-white transition-colors">
           + New Vault
         </button>
       </div>

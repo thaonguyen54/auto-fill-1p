@@ -1,6 +1,7 @@
 export const COMMAND = "op";
 
 export const CHANNELS = {
+    HOME: 'home',
     SYSTEM_INFO: 'system-info',
     SEND_MESSAGE: 'send-message',
     AUTH: {
@@ -17,5 +18,8 @@ export const CHANNELS = {
     },
     USER: {
         GET: 'get',
+    },
+    VAULT_UI: {
+        CREATE: 'create-vault',
     }
 }

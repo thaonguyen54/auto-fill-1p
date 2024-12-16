@@ -1,15 +1,14 @@
 import React from "react";
 import RootContainer from "@utils/dom";
 
-import Header from "./_components/header";
 import MainContent from "./_components/main-content";
+import WithHeader from "@src/layout/with-header";
 
 const Home = () => {
   return (
-    <div className="w-full h-full min-h-screen">
-      <Header/>
-      <MainContent/>
-    </div>
+    <WithHeader headerName="1Password">
+      <MainContent />
+    </WithHeader>
   );
 };
 

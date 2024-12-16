@@ -3,6 +3,7 @@ import React from "react";
 import Home from "./home";
 import Vault from "./vault";
 import Login from "./login";
+import CreateVault from "./create-vault";
 
 import type { RouterType } from "./type";
 
@@ -22,6 +23,11 @@ const PAGES: RouterType[] = [
     element: <Vault />,
     title: "Vault",
   },
+  {
+    path: "create-vault",
+    element: <CreateVault />,
+    title: "Create Vault",
+  }
 ];
 
 export default PAGES;
