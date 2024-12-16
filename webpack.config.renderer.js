@@ -15,7 +15,8 @@ module.exports = {
     },
     entry: {
         app: './src/renderer/app.tsx',
-        home: './src/renderer/pages/home/index.tsx'
+        home: './src/renderer/pages/home/index.tsx',
+        create_vault: './src/renderer/pages/create-vault/index.tsx',
     },
     target: 'electron-renderer',
     devtool: 'source-map',

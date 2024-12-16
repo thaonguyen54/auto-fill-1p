@@ -7,9 +7,14 @@ const ROUTES = [
         chunks: ['app']
     }),
     new HtmlWebpackPlugin({
-        template: './src/public/home.html',
+        template: './src/public/index.html',
         filename: 'home.html',
         chunks: ['home']
+    }),
+    new HtmlWebpackPlugin({
+        template: './src/public/index.html',
+        filename: 'create_vault.html',
+        chunks: ['create_vault']
     }),
 ]
 
