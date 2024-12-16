@@ -1,10 +1,12 @@
-import { ipcMain, IpcMainInvokeEvent } from "electron";
+import { ipcMain, IpcMainEvent, IpcMainInvokeEvent } from "electron";
 import { CHANNELS } from "./handler/constants";
 import type { AuthCredentials } from "./type";
 
 import authHandler from "./handler/auth-handler";
 import vaultHandler from "./handler/vault-handler";
 import userHandler from "./handler/user-handler";
+
+import { loadContentViews } from "./main";
 
 function handleAuthentication(event: IpcMainInvokeEvent, action: string, authCredentials: AuthCredentials) {
     switch (action) {
@@ -31,8 +33,21 @@ function handleUser(event: IpcMainInvokeEvent, action: string) {
     }
 }
 
+function handleOpenBrowserview(event: IpcMainEvent, name: string) {
+    switch (name) {
+        case CHANNELS.VAULT_UI.CREATE:
+            loadContentViews('create-vault', 'create_vault');
+            break;
+        case CHANNELS.HOME:
+            loadContentViews('home', 'home');
+            break;
+    }
+}
+
 export function initIpc() {
     ipcMain.handle('auth', handleAuthentication)
     ipcMain.handle('vault', handleVault)
     ipcMain.handle('user', handleUser)
+
+    ipcMain.on('open-browserview', handleOpenBrowserview)
 }

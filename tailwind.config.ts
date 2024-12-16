@@ -10,8 +10,12 @@ module.exports = {
     extend: {
       boxShadow: {
         'inset-soft-peach': 'inset 0 0 0 1px #e6b6ac',
-        'secondary-sky': '0 0 0 4px rgba(59, 130, 246, 1)'
-      },  
+        'secondary-sky': '0 0 0 4px rgba(59, 130, 246, 1)',
+        'gray-shadow': '0 2px 8px 0 hsla(0, 0%, 0%, 0.07), 0 0 0 1px hsla(0, 0%, 0%, 0.07)'
+      },
+      backgroundImage: {
+        createVaultHeader: 'url("https://app.1password.com/images/create-vault-header.svg")'
+      },
       screens: {
         '3xl': '1920px',
         '4xl': '2560px',
