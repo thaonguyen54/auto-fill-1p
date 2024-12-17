@@ -3,6 +3,8 @@ import RootContainer from '@utils/dom';
 import React from 'react'
 import MainContent from './_components/main-content';
 
+import "@src/styles.css";
+
 const CreateVault = () => {
   return (
     <div>

@@ -7,6 +7,7 @@ import { COMMAND } from "./constants";
 
 import { ResourceType } from "../enum";
 import { execPromise } from "@utils/exec-promise";
+import { includeCredentials } from "@utils/command";
 
 class VaultHandler implements IObserver {
     private resources: { type: ResourceType, data: any }[];
@@ -37,13 +38,17 @@ class VaultHandler implements IObserver {
     }
 
     async getVaultList(): Promise<VaultType[]> {
-        const vaults = await execPromise<VaultType[]>(`${COMMAND} vault list --session ${this.getData(ResourceType.TOKEN)} --format=json`);
+        const vaults = await execPromise<VaultType[]>(`${COMMAND} vault list ${includeCredentials(this.getData(ResourceType.TOKEN))}`);
         return vaults
     }
 
     async createVault(vault: VaultType): Promise<VaultType> {
-        const result = await execPromise<VaultType>(`${COMMAND} vault create "${vault.name}" ${vault.description && ` --description ${vault.description}`} --session ${this.getData(ResourceType.TOKEN)} --format=json`);
-        return result;
+        try{
+            const result = await execPromise<VaultType>(`${COMMAND} vault create "${vault.name}" ${vault.description && ` --description ${vault.description}`} ${includeCredentials(this.getData(ResourceType.TOKEN))}`);
+            return result;
+        }catch(e){
+            throw new Error(e as any)
+        }
     }
 }
 

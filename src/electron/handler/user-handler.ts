@@ -8,6 +8,7 @@ import { COMMAND } from "./constants";
 
 import { ResourceType } from "../enum";
 import { execPromise } from "@utils/exec-promise";
+import { includeCredentials } from "@utils/command";
 
 class UserHandler implements IObserver {
     private resources: { type: ResourceType, data: any }[];
@@ -41,7 +42,7 @@ class UserHandler implements IObserver {
     }
 
     async getInfo(): Promise<User> {
-        const user = await execPromise<User>(`${COMMAND} account get --session ${this.getData(ResourceType.TOKEN)} --format=json`);
+        const user = await execPromise<User>(`${COMMAND} account get ${includeCredentials(this.getData(ResourceType.TOKEN))}`);
         userPublisher.setUser(user);
         return user;
     }
