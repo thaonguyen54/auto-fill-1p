@@ -5,7 +5,7 @@ export type User = {
     type: string;
 }
 
-export type VaultType = {
+export type VaultDataType = {
     id: string;
     name: string;
     description?: string;

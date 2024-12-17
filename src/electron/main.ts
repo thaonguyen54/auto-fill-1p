@@ -4,7 +4,6 @@ import * as url from 'url';
 import CONFIG from '../../configs/config';
 import { initIpc } from './ipc';
 
-
 let mainWindow: Electron.BrowserWindow | null;
 
 function createWindow() {
@@ -20,7 +19,6 @@ function createWindow() {
 
     if (CONFIG.ENV === 'development') {
         mainWindow.loadURL(`http://localhost:9000`);
-        
         mainWindow.webContents.openDevTools();
     } else {
         mainWindow.setMenuBarVisibility(false);
