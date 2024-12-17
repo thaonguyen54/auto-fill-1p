@@ -7,6 +7,7 @@ import vaultHandler from "./handler/vault-handler";
 import userHandler from "./handler/user-handler";
 
 import { loadContentViews } from "./main";
+import type { VaultDataType } from "@src/global.type";
 
 function handleAuthentication(event: IpcMainInvokeEvent, action: string, authCredentials: AuthCredentials) {
     switch (action) {
@@ -19,10 +20,12 @@ function handleAuthentication(event: IpcMainInvokeEvent, action: string, authCre
     }
 }
 
-function handleVault(event: IpcMainInvokeEvent, action: string, vaultName: string) {
+function handleVault(event: IpcMainInvokeEvent, action: string, vault: VaultDataType) {
     switch (action) {
         case CHANNELS.VAULT.GET_ALL:
             return vaultHandler.getVaultList();
+        case CHANNELS.VAULT.CREATE:
+            return vaultHandler.createVault(vault)
     }
 }
 

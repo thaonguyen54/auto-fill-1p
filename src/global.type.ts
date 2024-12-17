@@ -5,9 +5,10 @@ export type User = {
     type: string;
 }
 
-export type VaultType = {
+export type VaultDataType = {
     id: string;
     name: string;
+    description?: string;
     content_version: number;
     created_at: string;
     updated_at: string;

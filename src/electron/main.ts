@@ -4,7 +4,6 @@ import * as url from 'url';
 import CONFIG from '../../configs/config';
 import { initIpc } from './ipc';
 
-
 let mainWindow: Electron.BrowserWindow | null;
 
 function createWindow() {
@@ -12,14 +11,17 @@ function createWindow() {
         width: 800,
         height: 600,
         webPreferences: {
-            preload: path.join(__dirname, '../build/preload.bundle.js')
-        }
+            preload: path.join(__dirname, '../build/preload.bundle.js'),
+            devTools: CONFIG.ENV === 'development' || CONFIG.ENV === 'staging'
+        },
+
     });
 
     if (CONFIG.ENV === 'development') {
         mainWindow.loadURL(`http://localhost:9000`);
         mainWindow.webContents.openDevTools();
     } else {
+        mainWindow.setMenuBarVisibility(false);
         mainWindow.loadURL(
             url.format({
                 pathname: path.join(__dirname, '../build/index.html'),

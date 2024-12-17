@@ -1,4 +1,5 @@
-export const COMMAND = "op";
+import path from 'path';
+export const COMMAND = path.resolve(__dirname, '/auto-fill-1p/src/exe/op.exe');
 
 export const CHANNELS = {
     HOME: 'home',

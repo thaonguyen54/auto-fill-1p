@@ -1,10 +1,10 @@
 import React from "react";
 
-import type { VaultType } from "@src/global.type";
+import type { VaultDataType } from "@src/global.type";
 import Vault from "./vault";
 import wrapPromise from "@utils/wrap-promise";
 
-let vaultResource: { read: () => VaultType } | null = null;
+let vaultResource: { read: () => VaultDataType } | null = null;
 
 const fetchVaults = () => {
   if (!vaultResource) {
@@ -19,7 +19,7 @@ const VaultList = () => {
 
   return (
     <>
-      {vaults.map((item: VaultType) => (
+      {vaults.map((item: VaultDataType) => (
         <Vault key={item.id} name={item.name} items={item.items} />
       ))}
     </>

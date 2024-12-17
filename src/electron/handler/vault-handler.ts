@@ -1,12 +1,13 @@
 
 import type { IObserver } from "../publisher/type";
-import type { VaultType } from "@src/global.type";
+import type { VaultDataType } from "@src/global.type";
 
 import tokenPublisher from "../publisher/token-publisher";
 import { COMMAND } from "./constants";
 
-import { exec } from "child_process";
 import { ResourceType } from "../enum";
+import { execPromise } from "@utils/exec-promise";
+import { includeCredentials } from "@utils/command";
 
 class VaultHandler implements IObserver {
     private resources: { type: ResourceType, data: any }[];
@@ -36,23 +37,18 @@ class VaultHandler implements IObserver {
         return this.resources.find(resource => resource.type === type)?.data
     }
 
-    async getVaultList(): Promise<VaultType[]> {
-        const execPromise = (cmd: string): Promise<string> => {
-            return new Promise((resolve, reject) => {
-                exec(cmd, (error, stdout) => {
-                    if (error) {
-                        reject(error);
-                    }
-
-                    resolve(stdout);
-                });
-            });
-        }
-
-        const result = await execPromise(`${COMMAND} vault list --session ${this.getData(ResourceType.TOKEN)} --format=json`);
-        const vaults: VaultType[] = JSON.parse(result);
-
+    async getVaultList(): Promise<VaultDataType[]> {
+        const vaults = await execPromise<VaultDataType[]>(`${COMMAND} vault list ${includeCredentials(this.getData(ResourceType.TOKEN))}`);
         return vaults
+    }
+
+    async createVault(vault: VaultDataType): Promise<VaultDataType> {
+        try{
+            const result = await execPromise<VaultDataType>(`${COMMAND} vault create "${vault.name}" ${vault.description && ` --description ${vault.description}`} ${includeCredentials(this.getData(ResourceType.TOKEN))}`);
+            return result;
+        }catch(e){
+            throw new Error(e as any)
+        }
     }
 }
 
