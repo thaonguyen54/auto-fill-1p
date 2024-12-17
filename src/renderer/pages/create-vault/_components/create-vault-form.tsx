@@ -26,18 +26,25 @@ const ICONS = Array.from({ length: 30 }, () => (
 ));
 
 const CrateVaultForm = () => {
-  const { register, handleSubmit } = useForm<CreateVaultFormProps>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<CreateVaultFormProps>();
   const [isLoading, setIsLoading] = React.useState(false);
+  const [error, setError] = React.useState("");
+  const [vaultName, setVaultName] = React.useState("");
 
   const handleCreateNewVault = async (data: CreateVaultFormProps) => {
     try {
       setIsLoading(true);
+      setError("");
       await (window as any).electronAPI.vault("vault", "create", data);
+      (window as any).electronAPI.openBrowserView("home");
     } catch (err) {
-      console.log(err);
+      setError("Network error, please try again later");
     } finally {
       setIsLoading(false);
-      (window as any).electronAPI.openBrowserView("home");
     }
   };
 
@@ -72,9 +79,17 @@ const CrateVaultForm = () => {
           <div className="flex flex-col gap-4">
             <Label htmlFor="vault-name">Vault Name</Label>
             <Input
-              className="h-11 border-black focus-visible:ring-[2.5px] focus-visible:ring-offset-1 focus-visible:ring-light-blue focus:outline-none"
+              className={`${
+                errors.name
+                  ? "border-red-300 bg-red-50"
+                  : "border-black focus-visible:ring-[2.5px] focus-visible:ring-offset-1 focus-visible:ring-light-blue focus:outline-none"
+              } h-11 `}
+              helperText={errors.name ? "Enter a vault name" : ""}
               type="vault-name"
-              {...register("name", { required: true })}
+              {...register("name", {
+                required: true,
+                onChange: (e) => setVaultName(e.target.value),
+              })}
             />
             <Label htmlFor="vault-name">Description {"(optional)"}</Label>
             <Textarea
@@ -83,7 +98,11 @@ const CrateVaultForm = () => {
               {...register("description")}
             />
             <Button
-              className="w-full h-11 font-normal text-base hover:bg-gray-200 border border-gray-light"
+              className={`w-full h-11 font-normal text-base ${
+                vaultName.length === 0
+                  ? "hover:bg-gray-200 border border-gray-light"
+                  : "hover:bg-dark-secondary-blue hover:text-white border border-light-blue bg-light-blue text-white"
+              }`}
               variant="outline"
               type="submit"
             >
@@ -91,6 +110,7 @@ const CrateVaultForm = () => {
             </Button>
           </div>
         </form>
+        {error.length > 0 && <p className="text-red-500 text-center">{error}</p>}
       </div>
     </div>
   );

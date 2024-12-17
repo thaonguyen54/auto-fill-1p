@@ -5,8 +5,9 @@ export function execPromise<T>(cmd: string, parseJson: boolean = true): Promise<
         exec(cmd, (error, stdout) => {
             if (error) {
                 reject(error);
+            }else{
+                resolve(parseJson ? JSON.parse(stdout) : stdout);
             }
-            resolve(parseJson ? JSON.parse(stdout) : stdout);
         });
     });
 }
