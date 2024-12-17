@@ -14,7 +14,8 @@ module.exports = {
         'gray-shadow': '0 2px 8px 0 hsla(0, 0%, 0%, 0.07), 0 0 0 1px hsla(0, 0%, 0%, 0.07)'
       },
       backgroundImage: {
-        createVaultHeader: 'url("https://app.1password.com/images/create-vault-header.svg")'
+        createVaultHeader: 'url("https://app.1password.com/images/create-vault-header.svg")',
+        vaultDetails: 'url("https://app.1password.com/images/vault-detail-background.png")'
       },
       screens: {
         '3xl': '1920px',
