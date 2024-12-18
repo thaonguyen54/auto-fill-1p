@@ -4,14 +4,19 @@ import React from "react";
 import MainContent from "./_components/main-content";
 
 import "@src/styles.css";
+import { VaultDetailProvider } from "@src/renderer/pages/vault-detail/context/vault-detail";
+import Overlay from "@components/common/overlay";
 
 const VaultDetails = () => {
   return (
-    <div>
-      <WithHeader headerName="Vault Details">
-        <MainContent />
-      </WithHeader>
-    </div>
+    <>
+      <VaultDetailProvider>
+        <WithHeader headerName="Vault Details">
+          <Overlay className="z-[60]" />
+          <MainContent />
+        </WithHeader>
+      </VaultDetailProvider>
+    </>
   );
 };
 
