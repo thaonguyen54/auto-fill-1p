@@ -1,15 +1,11 @@
-import Grid from "@components/common/grid";
+import ChangeIcon from "@components/common/change-icon";
+
 import { Button } from "@components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@components/ui/dropdown-menu";
+
 import { Input } from "@components/ui/input";
 import { Label } from "@components/ui/label";
 import { Textarea } from "@components/ui/textarea";
 
-import { ChevronDown } from "lucide-react";
 import React from "react";
 import { useForm } from "react-hook-form";
 
@@ -20,10 +16,6 @@ interface CreateVaultFormProps {
   name: string;
   description: string;
 }
-
-const ICONS = Array.from({ length: 30 }, () => (
-  <img src={KEY_ICON} alt="" className="w-8 h-8 rounded-full" />
-));
 
 const CrateVaultForm = () => {
   const {
@@ -52,24 +44,7 @@ const CrateVaultForm = () => {
     <div className="p-8 bg-white border rounded-b-lg">
       <div className="flex flex-col justify-center items-center">
         <img src={KEY_ICON} alt="" className="w-16 h-16 rounded-full mb-4" />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="outline"
-              className="px-1 h-7 rounded-lg border-blue-400"
-            >
-              <p className="text-blue-600 font-normal">Change icon</p>
-              <ChevronDown className="text-light-blue" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56">
-            <Grid gap={4} className="overflow-y-scroll h-40">
-              {ICONS.map((icon, index) => (
-                <div key={index}>{icon}</div>
-              ))}
-            </Grid>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <ChangeIcon/>
       </div>
       <div>
         <form
