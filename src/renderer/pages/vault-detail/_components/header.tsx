@@ -9,7 +9,7 @@ const KEY_ICON =
 const Header = () => {
   const [isEdit, setIsEdit] = React.useState(false);
 
-  const handleEdit = () => {
+  const showEditForm = () => {
     setIsEdit(!isEdit);
   };
 
@@ -39,14 +39,12 @@ const Header = () => {
             <div className="flex gap-3 w-full mt-5">
               <Button
                 variant={"outline"}
-                onClick={handleEdit}
+                onClick={showEditForm}
                 className="h-7 w-full"
               >
                 Cancel
               </Button>
-              <Button
-                className="h-7 w-full bg-light-blue hover:bg-dark-secondary-blue"
-              >
+              <Button className="h-7 w-full bg-light-blue hover:bg-dark-secondary-blue">
                 Save
               </Button>
             </div>
@@ -56,7 +54,7 @@ const Header = () => {
             <p className="font-sans font-medium text-xl">Vault name</p>
             <p className="mt-[-8px] mb-">Vault description</p>
             <Button
-              onClick={handleEdit}
+              onClick={showEditForm}
               className="mt-8 h-7 w-full bg-light-blue hover:bg-dark-secondary-blue"
             >
               Edit Details
