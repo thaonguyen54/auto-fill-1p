@@ -35,7 +35,7 @@ const VaultAction = () => {
             className="border bg-white p-3 hover:bg-secondary-white text-light-blue font-medium rounded-b-lg flex justify-between cursor-pointer"
           >
             <p>More Actions</p>
-            <div>...</div>
+            <span>...</span>
           </div>
         </div>
         {vaultDetailContext?.showDelete && (
