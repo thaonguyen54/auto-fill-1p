@@ -16,6 +16,11 @@ const ROUTES = [
         filename: 'create_vault.html',
         chunks: ['create_vault']
     }),
+    new HtmlWebpackPlugin({
+        template: './src/public/index.html',
+        filename: 'vault_detail.html',
+        chunks: ['vault_detail']
+    }),
 ]
 
 module.exports = ROUTES;
