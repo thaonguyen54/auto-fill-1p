@@ -1,14 +1,33 @@
 import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
 import VaultDetailContext from "@src/renderer/pages/vault-detail/context/vault-detail";
+import useVaultStore from "@stores/vaultStore";
 
 import React, { useContext } from "react";
 
 export function DeleteVaultDialog() {
   const vaultDetailContext = useContext(VaultDetailContext);
+  const [password, setPassword] = React.useState("");
+  const vaultStore = useVaultStore();
+
   const handleDialog = () => {
     document.getElementById("overlay")?.classList.add("hidden");
     vaultDetailContext?.setShowDeleteDialog(false);
+  };
+
+  const handleDeleteVault = async () => {
+    try {
+      await (window as any).electronAPI.vault(
+        "vault",
+        "delete",
+        vaultStore.selectedVault
+      );
+      
+      vaultStore.setSelectedVault(null);
+      (window as any).electronAPI.openBrowserView("home");
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
@@ -38,15 +57,24 @@ export function DeleteVaultDialog() {
         <p>
           To continue, enter your password and click Permanently Delete Vault.
         </p>
-        <form className="pt-4">
+        <div className="pt-4">
           <Input
             type="password"
+            onChange={(e) => setPassword(e.target.value)}
             className="focus:outline-none focus:shadow-secondary-sky transition-shadow duration-300"
           />
-          <Button className="bg-red-500 w-full rounded-3xl mt-4 hover:bg-red-600 font-medium">
+          <Button
+            onClick={handleDeleteVault}
+            disabled={password.length === 0}
+            className={`w-full rounded-3xl mt-4 font-medium cursor-pointer ${
+              password.length > 0
+                ? "hover:bg-red-600 bg-red-500"
+                : "bg-gray-300 cursor-not-allowed hover:bg-none border-2 "
+            }`}
+          >
             Permanently Delete Vault
           </Button>
-        </form>
+        </div>
       </div>
     </div>
   );

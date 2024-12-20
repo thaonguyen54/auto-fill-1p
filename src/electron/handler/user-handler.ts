@@ -7,24 +7,24 @@ import userPublisher from "../publisher/user-publisher";
 import { COMMAND } from "./constants";
 
 import { ResourceType } from "../enum";
-import { execPromise } from "@utils/exec-promise";
+import { execPromise } from "@utils/exec";
 import { includeCredentials } from "@utils/command";
 
 class UserHandler implements IObserver {
     private resources: { type: ResourceType, data: any }[];
     private static instance: UserHandler;
-    
+
     public static getInstance(): UserHandler {
         if (!UserHandler.instance) {
             UserHandler.instance = new UserHandler();
         }
-        
+
         return UserHandler.instance;
     }
 
     constructor() {
         this.resources = [];
-    
+
         tokenPublisher.subcribe(this);
         userPublisher.subcribe(this)
     }

@@ -16,6 +16,7 @@ export const CHANNELS = {
         UPDATE: 'update',
         GET_ALL: 'get-all',
         GET_ONE: 'get-one',
+        DETAILS: 'vault-details',
     },
     USER: {
         GET: 'get',

@@ -1,5 +1,6 @@
 import ArrowIcon from "@components/icon/arrow-icon";
 import SettingIcon from "@components/icon/setting-icon";
+import useVaultStore from "@stores/vaultStore";
 
 import React from "react";
 
@@ -7,11 +8,19 @@ const VAULT_LIST_AVATAR =
   "https://a.1passwordusercontent.com/JKRNV44YYJCQBEUIYHMP2DAHH4/e34v23yfgzc7debxdcgookapuu.png";
 
 interface VaultProps {
+  id: string;
   name: string;
   items: number;
 }
 
-const Vault = ({ name, items }: VaultProps) => {
+const Vault = ({ id, name, items }: VaultProps) => {
+  const { setSelectedVault } = useVaultStore();
+
+  const openVaultDetails = () => {
+    setSelectedVault({ id, name, items });    
+    (window as any).electronAPI.openBrowserView("vault-details");
+  };
+
   return (
     <div className="flex 2xl flex-col justify-between min-h-[270px] border border-solid border-gray-light rounded-md bg-white w-full mt-4 hover:border-sky-blue hover:border-2">
       <div className="flex flex-col flex-grow px-5 pt-5 pb-3">
@@ -34,7 +43,10 @@ const Vault = ({ name, items }: VaultProps) => {
         </p>
       </div>
       <div className="flex border justify-between border-t border-solid border-t-off-white  rounded-b-sm">
-        <div className="py-4 px-6  border-r border-solid border-r-off-white">
+        <div
+          onClick={openVaultDetails}
+          className="py-4 px-6  border-r border-solid border-r-off-white"
+        >
           <SettingIcon className="cursor-pointer" width={18} height={16} />
         </div>
         <div className="py-4 px-6">

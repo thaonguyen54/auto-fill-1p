@@ -6,7 +6,7 @@ import tokenPublisher from "../publisher/token-publisher";
 import { COMMAND } from "./constants";
 
 import { ResourceType } from "../enum";
-import { execPromise } from "@utils/exec-promise";
+import { execPromise } from "@utils/exec";
 import { includeCredentials } from "@utils/command";
 
 class VaultHandler implements IObserver {
@@ -43,10 +43,37 @@ class VaultHandler implements IObserver {
     }
 
     async createVault(vault: VaultDataType): Promise<VaultDataType> {
-        try{
+        try {
             const result = await execPromise<VaultDataType>(`${COMMAND} vault create "${vault.name}" ${vault.description && ` --description ${vault.description}`} ${includeCredentials(this.getData(ResourceType.TOKEN))}`);
             return result;
-        }catch(e){
+        } catch (e) {
+            throw new Error(e as any)
+        }
+    }
+
+    async getVaultDetails(id: string): Promise<VaultDataType> {
+        try {
+            const result = await execPromise<VaultDataType>(`${COMMAND} vault get ${id} ${includeCredentials(this.getData(ResourceType.TOKEN))}`);
+            return result;
+        } catch (e) {
+            throw new Error(e as any)
+        }
+    }
+
+    async updateVault(vault: VaultDataType): Promise<boolean> {
+        try {
+            await execPromise(`${COMMAND} vault edit ${vault.id} --name ${vault.name} ${vault.description && `--description ${vault.description}`} ${includeCredentials(this.getData(ResourceType.TOKEN))}`, false, true);
+            return true;
+        } catch (e) {
+            throw new Error(e as any)
+        }
+    }
+
+    async deleteVault(vault: VaultDataType): Promise<boolean> {
+        try {
+            await execPromise(`${COMMAND} vault delete ${vault.id} ${includeCredentials(this.getData(ResourceType.TOKEN))}`, false, true);
+            return true;
+        } catch (e) {
             throw new Error(e as any)
         }
     }
