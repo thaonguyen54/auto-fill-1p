@@ -26,6 +26,12 @@ function handleVault(event: IpcMainInvokeEvent, action: string, vault: VaultData
             return vaultHandler.getVaultList();
         case CHANNELS.VAULT.CREATE:
             return vaultHandler.createVault(vault)
+        case CHANNELS.VAULT.DETAILS:
+            return vaultHandler.getVaultDetails(vault.id)
+        case CHANNELS.VAULT.UPDATE:
+            return vaultHandler.updateVault(vault)
+        case CHANNELS.VAULT.DELETE:
+            return vaultHandler.deleteVault(vault)
     }
 }
 
@@ -43,6 +49,9 @@ function handleOpenBrowserview(event: IpcMainEvent, name: string) {
             break;
         case CHANNELS.HOME:
             loadContentViews('home', 'home');
+            break;
+        case CHANNELS.VAULT.DETAILS:
+            loadContentViews('vault-details', 'vault_detail');
             break;
     }
 }

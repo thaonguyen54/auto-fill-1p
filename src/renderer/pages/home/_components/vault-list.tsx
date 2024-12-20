@@ -20,7 +20,7 @@ const VaultList = () => {
   return (
     <>
       {vaults.map((item: VaultDataType) => (
-        <Vault key={item.id} name={item.name} items={item.items} />
+        <Vault key={item.id} name={item.name} items={item.items} id={item.id} />
       ))}
     </>
   );
